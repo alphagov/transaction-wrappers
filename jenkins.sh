@@ -5,6 +5,6 @@ export DISPLAY=":99"
 
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 bundle exec rake stats
-bundle exec rake ci:setup:testunit test
+bundle exec rake ci:setup:rspec default
 RESULT=$?
 exit $RESULT
