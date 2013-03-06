@@ -47,6 +47,8 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
+    ci_reporter (1.8.4)
+      builder (>= 2.1.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -171,6 +173,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara (= 1.1)
+  ci_reporter
   coffee-rails (~> 3.2.1)
   epdq!
   govuk_frontend_toolkit (= 0.10.0)

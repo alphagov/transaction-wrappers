@@ -23,6 +23,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '2.12.0'
   gem 'capybara', '1.1'
+  gem 'ci_reporter'
   gem 'simplecov-rcov', '0.2.3'
   gem 'webmock', '1.9.0', :require => false
 end
