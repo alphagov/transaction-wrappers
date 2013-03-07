@@ -11,9 +11,15 @@ feature "epdq transactions" do
         page.should have_content("Pay for certificates for marriage")
       end
 
-      within(:css, "article") do
+      within(:css, "form") do
         page.should have_content("How many documents do you require?")
         page.should have_content("Each document costs £65.")
+        page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
+
+        page.should have_content("Do you require postage? This costs £10.")
+        page.should have_select("transaction_postage", :options => ["Yes", "No"])
+
+        page.should have_button("Calculate total")
       end
     end
   end

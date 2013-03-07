@@ -11,8 +11,25 @@
   <div class="article-container group">
       <article role="article" class="group">
        <div class="inner">
-          <p>How many documents do you require?<br />
-            Each document costs &pound;<%= @transaction[:document_cost] %>.</p>
+          <%= form_tag transaction_confirm_path(@transaction[:slug]) do %>
+            <p>
+              <%= label_tag "transaction_document_count" do %>
+                How many documents do you require?<br />Each document costs &pound;<%= @transaction[:document_cost] %>.<br />
+                <%= select_tag "transaction[document_count]", options_for_select(1..9), :id => "transaction_document_count" %>
+              <% end %>
+            </p>
+
+            <p>
+              <%= label_tag "transaction_postage" do %>
+                Do you require postage? This costs &pound;<%= @transaction[:postage_cost] %>.<br />
+                <%= select_tag "transaction[postage]", options_for_select([["Yes", "yes"], ["No", "no"]]), :id => "transaction_postage" %>
+              <% end %>
+            </p>
+
+            <p id="get-started" class="get-started group">
+              <button class="button" type="submit" >Calculate total</button>
+            </p>
+          <% end %>
        </div>
      </article>
   </div>
