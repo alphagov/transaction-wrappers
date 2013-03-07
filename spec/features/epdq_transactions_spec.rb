@@ -21,7 +21,6 @@ feature "epdq transactions" do
   it "renders a 404 error on for an invalid transaction slug" do
     visit "/pay-for-bunting"
 
-    page.should have_content("Page not found")
     page.status_code.should == 404
   end
 
