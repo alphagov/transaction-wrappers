@@ -8,6 +8,11 @@ describe EpdqTransactionsController do
       response.should be_not_found
     end
 
+    it "returns 404 status if slug is not found" do
+      get :start, :slug => "pay-for-all-the-things"
+      response.should be_not_found
+    end
+
     context "given a valid transaction as the slug" do
       before do
         get :start, :slug => "pay-for-certificates-for-marriage"
@@ -47,6 +52,14 @@ describe EpdqTransactionsController do
       it "should calculate the correct total cost" do
         assigns(:calculation).total_cost.should == 335
         assigns(:calculation).item_list.should == "5 documents, plus postage,"
+      end
+
+      it "is successful" do
+        response.should be_success
+      end
+
+      it "renders the confirm template" do
+        @controller.should render_template("confirm")
       end
     end
   end
