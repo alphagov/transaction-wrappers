@@ -28,7 +28,27 @@ describe EpdqTransactionsController do
         assigns(:transaction)[:registration].should be_false
       end
     end
+  end
 
+  describe "confirm pages" do
+    it "returns 404 status if slug is empty" do
+      post :confirm, :slug => ""
+      response.should be_not_found
+    end
+
+    context "given valid values" do
+      before do
+        post :confirm, :slug => "pay-for-certificates-for-marriage", :transaction => {
+          :document_count => "5",
+          :postage => "yes"
+        }
+      end
+
+      it "should calculate the correct total cost" do
+        assigns(:calculation).total_cost.should == 335
+        assigns(:calculation).item_list.should == "5 documents, plus postage,"
+      end
+    end
   end
 
 end

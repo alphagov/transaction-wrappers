@@ -22,6 +22,19 @@ feature "epdq transactions" do
         page.should have_button("Calculate total")
       end
     end
+
+    it "calculates a total given correct data" do
+      visit "/pay-for-certificates-for-marriage"
+
+      within(:css, "form") do
+        select "3", :from => "How many documents do you require?"
+        select "Yes", :from => "Do you require postage?"
+      end
+
+      click_on "Calculate total"
+
+      page.should have_content("£205")
+    end
   end
 
   it "renders a 404 error on for an invalid transaction slug" do
