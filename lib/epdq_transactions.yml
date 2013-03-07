@@ -1,0 +1,22 @@
+pay-for-certificates-for-marriage:
+  title: Pay for certificates for marriage
+  document_cost: 65
+  postage_cost: 10
+  registration: false
+pay-to-deposit-marriage-documents:
+  title: Pay to deposit marriage documents
+  document_cost: 35
+  postage_cost: 10
+  registration: false
+pay-to-register-death-abroad:
+  title: Pay to register a death abroad
+  document_cost: 65
+  postage_cost: 10
+  registration: true
+  registration_cost: 105
+pay-to-register-birth-abroad:
+  title: Pay to register a birth abroad
+  document_cost: 65
+  postage_cost: 10
+  registration: true
+  registration_cost: 105
