@@ -10,6 +10,7 @@ class EpdqTransactionsController < ApplicationController
 
   def confirm
     @calculation = calculate_total(@transaction, params[:transaction])
+    @epdq_request = build_epdq_request(@transaction, @calculation.total_cost)
   rescue InvalidDocumentType
     @errors = [:document_type]
     render :action => "start"
@@ -49,6 +50,16 @@ class EpdqTransactionsController < ApplicationController
       item_list << ", plus postage," if postage
 
       return OpenStruct.new(:total_cost => total_cost, :item_list => item_list)
+    end
+
+    def build_epdq_request(transaction, total_cost_in_gbp)
+      @epdq_request = EPDQ::Request.new(
+        :orderid => SecureRandom.hex(15),
+        :amount => (total_cost_in_gbp * 100).round,
+        :currency => "GBP",
+        :language => "en_GB",
+        :accepturl => Plek.current.find("www") + "/#{transaction[:slug]}/done"
+      )
     end
 
 end

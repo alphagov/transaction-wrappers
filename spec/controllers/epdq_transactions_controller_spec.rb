@@ -63,6 +63,12 @@ describe EpdqTransactionsController do
         it "renders the confirm template" do
           @controller.should render_template("confirm")
         end
+
+        it "assigns an EPDQ request with the correct amount" do
+          assigns(:epdq_request).parameters[:orderid].should_not be_blank
+          assigns(:epdq_request).parameters[:amount].should == 33500
+          assigns(:epdq_request).parameters[:accepturl].should == "http://www.dev.gov.uk/pay-for-certificates-for-marriage/done"
+        end
       end
 
       context "given no document type" do

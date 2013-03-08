@@ -28,18 +28,39 @@ feature "epdq transactions" do
       end
     end
 
-    it "calculates a total given correct data" do
-      visit "/pay-for-certificates-for-marriage"
+    context "given correct data" do
+      before do
+        visit "/pay-for-certificates-for-marriage"
 
-      within(:css, "form") do
-        choose "Certificate of custom law"
-        select "3", :from => "How many documents do you require?"
-        select "Yes", :from => "Do you require postage?"
+        within(:css, "form") do
+          choose "Certificate of custom law"
+          select "3", :from => "How many documents do you require?"
+          select "Yes", :from => "Do you require postage?"
+        end
+
+        click_on "Calculate total"
       end
 
-      click_on "Calculate total"
+      it "calculates a total" do
+        page.should have_content("The cost for 3 Certificates of custom law, plus postage, is £205")
+      end
 
-      page.should have_content("The cost for 3 Certificates of custom law, plus postage, is £205")
+      it "generates an EPDQ form" do
+        page.should have_selector("form[action^='https://mdepayments.epdq.co.uk'][method='post']")
+
+        within(:css, "form.epdq-submit") do
+          page.should have_selector("input[name='ORDERID']")
+          page.should have_selector("input[name='PSPID']")
+          page.should have_selector("input[name='SHASIGN']")
+
+          page.should have_selector("input[name='AMOUNT'][value='20500']")
+          page.should have_selector("input[name='CURRENCY'][value='GBP']")
+          page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-for-certificates-for-marriage/done']")
+
+          page.should have_button("Pay")
+        end
+      end
     end
 
     it "displays an error and renders the form given incorrect data" do
