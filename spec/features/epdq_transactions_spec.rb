@@ -12,6 +12,11 @@ feature "epdq transactions" do
       end
 
       within(:css, "form") do
+        page.should have_content("What type of document do you require?")
+        page.should have_unchecked_field("Certificate of no impediment")
+        page.should have_unchecked_field("Nulla osta")
+        page.should have_unchecked_field("Certificate of custom law")
+
         page.should have_content("How many documents do you require?")
         page.should have_content("Each document costs £65.")
         page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
@@ -27,13 +32,28 @@ feature "epdq transactions" do
       visit "/pay-for-certificates-for-marriage"
 
       within(:css, "form") do
+        choose "Certificate of custom law"
         select "3", :from => "How many documents do you require?"
         select "Yes", :from => "Do you require postage?"
       end
 
       click_on "Calculate total"
 
-      page.should have_content("£205")
+      page.should have_content("The cost for 3 Certificates of custom law, plus postage, is £205")
+    end
+
+    it "displays an error and renders the form given incorrect data" do
+      visit "/pay-for-certificates-for-marriage"
+
+      within(:css, "form") do
+        select "3", :from => "How many documents do you require?"
+        select "Yes", :from => "Do you require postage?"
+      end
+
+      click_on "Calculate total"
+
+      page.should have_selector("p.error-message", :text => "Please choose a document type")
+      page.should have_content("What type of document do you require?")
     end
   end
 

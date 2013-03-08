@@ -12,6 +12,26 @@
       <article role="article" class="group">
        <div class="inner">
           <%= form_tag transaction_confirm_path(@transaction[:slug]) do %>
+            <% if @errors.present? %>
+              <% @errors.each do |key| %>
+              <p class="error-message"><%= t "epdq.errors.#{key}" %></p>
+              <% end %>
+            <% end %>
+
+            <% if @transaction[:document_types].present? %>
+              <p>What type of document do you require?</p>
+
+              <ul>
+                <% @transaction[:document_types].each do |value,label| %>
+                <li>
+                  <%= label_tag "transaction_document_type_#{value}" do %>
+                    <%= radio_button_tag "transaction[document_type]", value %> <%= label %>
+                  <% end %>
+                </li>
+                <% end %>
+              </ul>
+            <% end %>
+
             <p>
               <%= label_tag "transaction_document_count" do %>
                 How many documents do you require?<br />Each document costs &pound;<%= @transaction[:document_cost] %>.<br />

@@ -3,6 +3,10 @@ pay-for-certificates-for-marriage:
   document_cost: 65
   postage_cost: 10
   registration: false
+  document_types:
+    certificate-of-no-impediment: Certificate of no impediment
+    nulla-osta: Nulla osta
+    certificate-of-custom-law: Certificate of custom law
 pay-to-deposit-marriage-documents:
   title: Pay to deposit marriage and civil partnership documents in the UK
   document_cost: 35
