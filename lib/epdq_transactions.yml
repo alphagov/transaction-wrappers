@@ -13,14 +13,16 @@ pay-to-deposit-marriage-documents:
   postage_cost: 10
   registration: false
 pay-to-register-death-abroad:
-  title: Pay to register a death abroad
+  title: Pay to register a death abroad in the UK
   document_cost: 65
   postage_cost: 10
   registration: true
   registration_cost: 105
+  registration_type: death
 pay-to-register-birth-abroad:
-  title: Pay to register a birth abroad
+  title: Pay to register a birth abroad in the UK
   document_cost: 65
   postage_cost: 10
   registration: true
   registration_cost: 105
+  registration_type: birth

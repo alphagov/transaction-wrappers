@@ -12,6 +12,8 @@ feature "epdq transactions" do
       end
 
       within(:css, "form") do
+        page.should have_no_content("How many birth registrations do you need to register?")
+
         page.should have_content("What type of document do you require?")
         page.should have_unchecked_field("Certificate of no impediment")
         page.should have_unchecked_field("Nulla osta")
@@ -75,6 +77,66 @@ feature "epdq transactions" do
 
       page.should have_selector("p.error-message", :text => "Please choose a document type")
       page.should have_content("What type of document do you require?")
+    end
+  end
+
+  describe "paying to register a birth abroad" do
+    it "renders the content and form" do
+      visit "/pay-to-register-birth-abroad"
+
+      within(:css, "header.page-header") do
+        page.should have_content("Pay to register a birth abroad in the UK")
+      end
+
+      within(:css, "form") do
+        page.should have_content("How many birth registrations do you need to register?")
+        page.should have_content("Each registration costs £105.")
+        page.should have_select("transaction_registration_count", :options => ["1","2","3","4","5","6","7","8","9"])
+
+        page.should have_content("How many birth certificates do you require?")
+        page.should have_content("Each certificate costs £65.")
+        page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
+
+        page.should have_content("Do you require postage? This costs £10.")
+        page.should have_select("transaction_postage", :options => ["Yes", "No"])
+
+        page.should have_button("Calculate total")
+      end
+    end
+
+    context "given correct data" do
+      before do
+        visit "/pay-to-register-birth-abroad"
+
+        within(:css, "form") do
+          select "2", :from => "How many birth registrations do you need to register?"
+          select "3", :from => "How many birth certificates do you require?"
+          select "Yes", :from => "Do you require postage?"
+        end
+
+        click_on "Calculate total"
+      end
+
+      it "calculates a total" do
+        page.should have_content("The cost for 2 birth registrations and 3 birth certificates, plus postage, is £415")
+      end
+
+      it "generates an EPDQ form" do
+        page.should have_selector("form[action^='https://mdepayments.epdq.co.uk'][method='post']")
+
+        within(:css, "form.epdq-submit") do
+          page.should have_selector("input[name='ORDERID']")
+          page.should have_selector("input[name='PSPID']")
+          page.should have_selector("input[name='SHASIGN']")
+
+          page.should have_selector("input[name='AMOUNT'][value='41500']")
+          page.should have_selector("input[name='CURRENCY'][value='GBP']")
+          page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-to-register-birth-abroad/done']")
+
+          page.should have_button("Pay")
+        end
+      end
     end
   end
 

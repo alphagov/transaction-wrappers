@@ -107,6 +107,37 @@ describe EpdqTransactionsController do
       end
     end
 
+    describe "with registration count" do
+      context "given valid values" do
+        before do
+          post :confirm, :slug => "pay-to-register-birth-abroad", :transaction => {
+            :registration_count => "5",
+            :document_count => "5",
+            :postage => "yes"
+          }
+        end
+
+        it "should calculate the correct total cost" do
+          assigns(:calculation).total_cost.should == 860
+          assigns(:calculation).item_list.should == "5 birth registrations and 5 birth certificates, plus postage,"
+        end
+
+        it "is successful" do
+          response.should be_success
+        end
+
+        it "renders the confirm template" do
+          @controller.should render_template("confirm")
+        end
+
+        it "assigns an EPDQ request with the correct amount" do
+          assigns(:epdq_request).parameters[:orderid].should_not be_blank
+          assigns(:epdq_request).parameters[:amount].should == 86000
+          assigns(:epdq_request).parameters[:accepturl].should == "http://www.dev.gov.uk/pay-to-register-birth-abroad/done"
+        end
+      end
+    end
+
     describe "without multiple document types" do
       context "given valid values" do
         before do
