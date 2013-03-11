@@ -72,7 +72,7 @@ class EpdqTransactionsController < ApplicationController
         :amount => (total_cost_in_gbp * 100).round,
         :currency => "GBP",
         :language => "en_GB",
-        :accepturl => Plek.current.find("www") + "/#{transaction[:slug]}/done"
+        :accepturl => root_url + "#{transaction[:slug]}/done"
       )
     end
 
