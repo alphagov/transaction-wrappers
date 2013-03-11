@@ -78,6 +78,40 @@ feature "epdq transactions" do
       page.should have_selector("p.error-message", :text => "Please choose a document type")
       page.should have_content("What type of document do you require?")
     end
+
+    describe "visiting the done page" do
+      context "given valid payment details" do
+        before do
+          visit "/pay-for-certificates-for-marriage/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR+MICKEY+MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003"
+        end
+
+        it "should display the done page content" do
+          within(:css, "header.page-header") do
+            page.should have_content("Pay for certificates for marriage")
+          end
+
+          page.should have_content("Your payment to the Foreign & Commonwealth Office is complete.")
+        end
+
+        it "should display the order number" do
+          page.should have_content("12345678")
+        end
+      end
+
+      context "invalid payment details" do
+        before do
+          visit "/pay-for-certificates-for-marriage/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MISS+MINNIE+MOUSE&SHASIGN=yarrrrr"
+        end
+
+        it "should display the error page content" do
+          within(:css, "header.page-header") do
+            page.should have_content("Pay for certificates for marriage")
+          end
+
+          page.should have_content("There was a problem making your payment to the Foreign & Commonwealth Office.")
+        end
+      end
+    end
   end
 
   describe "paying to register a birth abroad" do

@@ -19,6 +19,16 @@ class EpdqTransactionsController < ApplicationController
     render :action => "start"
   end
 
+  def done
+    @epdq_response = EPDQ::Response.new(request.query_string)
+
+    if @epdq_response.valid_shasign?
+      render "done"
+    else
+      render "payment_error"
+    end
+  end
+
   private
     def find_transaction
       @transaction_list ||= YAML.load( File.open( Rails.root.join("lib", "epdq_transactions.yml") ) )

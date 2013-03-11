@@ -163,4 +163,72 @@ describe EpdqTransactionsController do
     end
   end
 
+  describe "done pages" do
+    it "returns 404 status if slug is empty" do
+      post :confirm, :slug => ""
+      response.should be_not_found
+    end
+
+    describe "for a standard transaction" do
+      context "given valid parameters" do
+        before do
+          get :done, :slug => "pay-to-deposit-marriage-documents",
+            "orderID" => "test",
+            "currency" => "GBP",
+            "amount" => 45,
+            "PM" => "CreditCard",
+            "ACCEPTANCE" => "test123",
+            "STATUS" => 5,
+            "CARDNO" => "XXXXXXXXXXXX1111",
+            "CN" => "MR MICKEY MOUSE",
+            "TRXDATE" => "03/11/13",
+            "PAYID" => 12345678,
+            "NCERROR" => 0,
+            "BRAND" => "VISA",
+            "SHASIGN" => "6ACE8B0C8E0B427137F6D7FF86272AA570255003"
+        end
+
+        it "is successful" do
+          response.should be_success
+        end
+
+        it "renders the done template" do
+          @controller.should render_template("done")
+        end
+
+        it "assigns the epdq response" do
+          assigns(:epdq_response).parameters[:payid].should == "12345678"
+          assigns(:epdq_response).parameters[:orderid].should == "test"
+        end
+      end
+
+      context "given invalid parameters" do
+        before do
+          get :done, :slug => "pay-to-deposit-marriage-documents",
+            "orderID" => "test",
+            "currency" => "GBP",
+            "amount" => 45,
+            "PM" => "CreditCard",
+            "ACCEPTANCE" => "test123",
+            "STATUS" => 5,
+            "CARDNO" => "XXXXXXXXXXXX1111",
+            "CN" => "MR MICKEY MOUSE",
+            "TRXDATE" => "03/11/13",
+            "PAYID" => 12345678,
+            "NCERROR" => 0,
+            "BRAND" => "VISA",
+            "SHASIGN" => "something which is not correct"
+        end
+
+        it "should be successful" do
+          response.should be_success
+        end
+
+        it "should render the error template" do
+          @controller.should render_template("error")
+        end
+      end
+    end
+  end
+
 end
