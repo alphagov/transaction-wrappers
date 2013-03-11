@@ -1,8 +1,11 @@
 class EpdqTransactionsController < ApplicationController
 
-  before_filter :find_transaction
+  before_filter :find_transaction, :except => :index
 
   class InvalidDocumentType < Exception; end
+
+  def index
+  end
 
   def start
 
