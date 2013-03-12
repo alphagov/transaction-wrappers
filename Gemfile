@@ -14,6 +14,8 @@ end
 
 gem 'plek', '1.3.1'
 
+gem 'exception_notification', "3.0.1"
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
