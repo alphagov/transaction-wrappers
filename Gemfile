@@ -15,6 +15,7 @@ end
 gem 'plek', '1.3.1'
 
 gem 'exception_notification', "3.0.1"
+gem 'aws-ses', :require => 'aws/ses' # Needed by exception_notification
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
