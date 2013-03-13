@@ -174,6 +174,122 @@ feature "epdq transactions" do
     end
   end
 
+  describe "paying to register a death abroad" do
+    it "renders the content and form" do
+      visit "/pay-to-register-death-abroad"
+
+      within(:css, "header.page-header") do
+        page.should have_content("Pay to register a death abroad in the UK")
+      end
+
+      within(:css, "form") do
+        page.should have_content("How many death registrations do you need to register?")
+        page.should have_content("Each registration costs £105.")
+        page.should have_select("transaction_registration_count", :options => ["1","2","3","4","5","6","7","8","9"])
+
+        page.should have_content("How many death certificates do you require?")
+        page.should have_content("Each certificate costs £65.")
+        page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
+
+        page.should have_content("Do you require postage? This costs £10.")
+        page.should have_select("transaction_postage", :options => ["Yes", "No"])
+
+        page.should have_button("Calculate total")
+      end
+    end
+
+    context "given correct data" do
+      before do
+        visit "/pay-to-register-death-abroad"
+
+        within(:css, "form") do
+          select "5", :from => "How many death registrations do you need to register?"
+          select "1", :from => "How many death certificates do you require?"
+          select "Yes", :from => "Do you require postage?"
+        end
+
+        click_on "Calculate total"
+      end
+
+      it "calculates a total" do
+        page.should have_content("The cost for 5 death registrations and 1 death certificate, plus postage, is £600")
+      end
+
+      it "generates an EPDQ form" do
+        page.should have_selector("form[action^='https://mdepayments.epdq.co.uk'][method='post']")
+
+        within(:css, "form.epdq-submit") do
+          page.should have_selector("input[name='ORDERID']")
+          page.should have_selector("input[name='PSPID']")
+          page.should have_selector("input[name='SHASIGN']")
+
+          page.should have_selector("input[name='AMOUNT'][value='60000']")
+          page.should have_selector("input[name='CURRENCY'][value='GBP']")
+          page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-to-register-death-abroad/done']")
+
+          page.should have_button("Pay")
+        end
+      end
+    end
+  end
+
+  describe "paying to deposit marriage and civil partnership documents" do
+    it "renders the content and form" do
+      visit "/pay-to-deposit-marriage-documents"
+
+      within(:css, "header.page-header") do
+        page.should have_content("Pay to deposit marriage and civil partnership documents in the UK")
+      end
+
+      within(:css, "form") do
+        page.should have_content("How many documents do you require?")
+
+        page.should have_content("Each document costs £35.")
+        page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
+
+        page.should have_content("Do you require postage? This costs £10.")
+        page.should have_select("transaction_postage", :options => ["Yes", "No"])
+
+        page.should have_button("Calculate total")
+      end
+    end
+
+    context "given correct data" do
+      before do
+        visit "/pay-to-deposit-marriage-documents"
+
+        within(:css, "form") do
+          select "1", :from => "How many documents do you require?"
+          select "Yes", :from => "Do you require postage?"
+        end
+
+        click_on "Calculate total"
+      end
+
+      it "calculates a total" do
+        page.should have_content("The cost for 1 document, plus postage, is £45")
+      end
+
+      it "generates an EPDQ form" do
+        page.should have_selector("form[action^='https://mdepayments.epdq.co.uk'][method='post']")
+
+        within(:css, "form.epdq-submit") do
+          page.should have_selector("input[name='ORDERID']")
+          page.should have_selector("input[name='PSPID']")
+          page.should have_selector("input[name='SHASIGN']")
+
+          page.should have_selector("input[name='AMOUNT'][value='4500']")
+          page.should have_selector("input[name='CURRENCY'][value='GBP']")
+          page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-to-deposit-marriage-documents/done']")
+
+          page.should have_button("Pay")
+        end
+      end
+    end
+  end
+
   it "renders a 404 error on for an invalid transaction slug" do
     visit "/pay-for-bunting"
 
