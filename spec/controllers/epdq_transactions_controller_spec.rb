@@ -64,6 +64,11 @@ describe EpdqTransactionsController do
           @controller.should render_template("confirm")
         end
 
+        it "assigns the transaction details" do
+          assigns(:transaction).title.should == "Pay for certificates for marriage"
+          assigns(:transaction).slug.should == "pay-for-certificates-for-marriage"
+        end
+
         it "assigns an EPDQ request with the correct amount" do
           assigns(:epdq_request).parameters[:orderid].should_not be_blank
           assigns(:epdq_request).parameters[:amount].should == 33500
@@ -130,6 +135,11 @@ describe EpdqTransactionsController do
           @controller.should render_template("confirm")
         end
 
+        it "assigns the transaction details" do
+          assigns(:transaction).title.should == "Pay to register a birth abroad in the UK"
+          assigns(:transaction).slug.should == "pay-to-register-birth-abroad"
+        end
+
         it "assigns an EPDQ request with the correct amount" do
           assigns(:epdq_request).parameters[:orderid].should_not be_blank
           assigns(:epdq_request).parameters[:amount].should == 86000
@@ -194,6 +204,11 @@ describe EpdqTransactionsController do
 
         it "renders the done template" do
           @controller.should render_template("done")
+        end
+
+        it "assigns the transaction details" do
+          assigns(:transaction).title.should == "Pay to deposit marriage and civil partnership documents in the UK"
+          assigns(:transaction).slug.should == "pay-to-deposit-marriage-documents"
         end
 
         it "assigns the epdq response" do
