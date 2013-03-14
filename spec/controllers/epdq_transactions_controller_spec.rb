@@ -27,10 +27,10 @@ describe EpdqTransactionsController do
       end
 
       it "assigns the transaction details" do
-        assigns(:transaction)[:title].should == "Pay for certificates for marriage"
-        assigns(:transaction)[:slug].should == "pay-for-certificates-for-marriage"
-        assigns(:transaction)[:document_cost].should == 65
-        assigns(:transaction)[:registration].should be_false
+        assigns(:transaction).title.should == "Pay for certificates for marriage"
+        assigns(:transaction).slug.should == "pay-for-certificates-for-marriage"
+        assigns(:transaction).document_cost.should == 65
+        assigns(:transaction).registration.should be_false
       end
     end
   end

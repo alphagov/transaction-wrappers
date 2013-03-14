@@ -1,6 +1,7 @@
 class EpdqTransactionsController < ApplicationController
 
   before_filter :find_transaction, :except => :index
+  rescue_from Transaction::TransactionNotFound, :with => :error_404
 
   class InvalidDocumentType < Exception; end
 
@@ -31,16 +32,7 @@ class EpdqTransactionsController < ApplicationController
 
 private
   def find_transaction
-    @transaction_list ||= YAML.load( File.open( Rails.root.join("lib", "epdq_transactions.yml") ) )
-    @transaction = @transaction_list[params[:slug]]
-
-    unless @transaction.present?
-      error_404
-      return
-    end
-
-    @transaction.symbolize_keys!
-    @transaction[:slug] = params[:slug]
+    @transaction = Transaction.find(params[:slug])
   end
 
   def calculate_total(transaction, values)
@@ -50,22 +42,22 @@ private
 
     item_list = []
 
-    document_total = @transaction[:document_cost] * document_count
-    postage_total = postage ? @transaction[:postage_cost] : 0
+    document_total = transaction.document_cost * document_count
+    postage_total = postage ? transaction.postage_cost : 0
     total_cost = document_total + postage_total
 
-    if @transaction[:registration]
+    if transaction.registration
       registration_count = values[:registration_count].to_i
-      registration_total = @transaction[:registration_cost] * registration_count
+      registration_total = transaction.registration_cost * registration_count
       total_cost += registration_total
 
-      item_list << "#{registration_count} " + pluralize_document_type_label(registration_count, "#{@transaction[:registration_type]} registration") + " and "
-      document_type_label = "#{@transaction[:registration_type]} certificate"
+      item_list << "#{registration_count} " + pluralize_document_type_label(registration_count, "#{transaction.registration_type} registration") + " and "
+      document_type_label = "#{transaction.registration_type} certificate"
     end
 
-    if @transaction[:document_types].present?
+    if transaction.document_types.present?
       if document_type.present?
-        document_type_label = @transaction[:document_types][document_type]
+        document_type_label = transaction.document_types[document_type]
       end
       raise InvalidDocumentType unless document_type_label
     end
@@ -82,7 +74,7 @@ private
       :amount => (total_cost_in_gbp * 100).round,
       :currency => "GBP",
       :language => "en_GB",
-      :accepturl => root_url + "#{transaction[:slug]}/done"
+      :accepturl => root_url + "#{transaction.slug}/done"
     )
   end
 

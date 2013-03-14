@@ -2,7 +2,7 @@
 
   <header class="page-header group">
     <hgroup>
-      <h1><span>Service</span> <%= @transaction[:title] %></h1>
+      <h1><span>Service</span> <%= @transaction.title %></h1>
     </hgroup>
     <nav class="skip-to-related">
       <a href="#related">Not what you're looking for? ↓</a>
@@ -32,4 +32,4 @@
 <div id="related-items"></div>
 
 <% content_for :wrapper_classes do %>service<% end %>
-<% content_for :title do %><%= @transaction[:title] %><% end %>
+<% content_for :title do %><%= @transaction.title %><% end %>
