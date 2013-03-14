@@ -12,7 +12,15 @@ describe Transaction do
         "pay-for-gorilla-hire" => {
           "title" => "Pay for gorilla hire",
           "document_cost" => 120,
-          "registration" => false
+          "postage_cost" => 20,
+          "document_types" => {
+            "mountain_gorilla" => "Mountain gorilla rental agreement",
+            "western_gorilla" => "Western gorilla rental agreement",
+            "eastern_lowland_gorilla" => "Eastern lowland gorilla hire licence"
+          },
+          "registration" => true,
+          "registration_cost" => 105,
+          "registration_type" => "gorilla"
         }
       }
     end
@@ -22,6 +30,32 @@ describe Transaction do
 
       Transaction.transaction_list
       Transaction.transaction_list
+    end
+  end
+
+  describe "finding a transaction" do
+    it "returns a transaction object for a valid slug" do
+      transaction = Transaction.find("pay-for-gorilla-hire")
+
+      transaction.should be_a(Transaction)
+      transaction.slug.should == "pay-for-gorilla-hire"
+      transaction.title.should == "Pay for gorilla hire"
+
+      transaction.document_types.should == {
+        "mountain_gorilla" => "Mountain gorilla rental agreement",
+        "western_gorilla" => "Western gorilla rental agreement",
+        "eastern_lowland_gorilla" => "Eastern lowland gorilla hire licence"
+      }
+      transaction.document_cost.should == 120
+      transaction.postage_cost.should == 20
+
+      transaction.registration.should be_true
+      transaction.registration_cost.should == 105
+      transaction.registration_type.should == "gorilla"
+    end
+
+    it "raises an exception if the transaction does not exist" do
+      expect { Transaction.find("pay-for-a-free-exception") }.to raise_error(Transaction::TransactionNotFound)
     end
   end
 

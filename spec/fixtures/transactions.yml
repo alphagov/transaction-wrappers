@@ -1,4 +1,11 @@
 pay-for-gorilla-hire:
   title: Pay for gorilla hire
   document_cost: 120
-  registration: false
+  postage_cost: 20
+  document_types:
+    mountain_gorilla: Mountain gorilla rental agreement
+    western_gorilla: Western gorilla rental agreement
+    eastern_lowland_gorilla: Eastern lowland gorilla hire licence
+  registration: true
+  registration_cost: 105
+  registration_type: gorilla

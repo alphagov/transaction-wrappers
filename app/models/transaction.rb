@@ -1,5 +1,27 @@
 class Transaction
+  attr_reader :title, :slug, :document_cost, :postage_cost, :registration_cost, :registration_type, :document_types, :registration
   cattr_writer :file_path, :transaction_list
+
+  class TransactionNotFound < Exception; end
+
+  def initialize(atts)
+    @title = atts['title']
+    @slug = atts['slug']
+    @document_cost = atts['document_cost']
+    @postage_cost = atts['postage_cost']
+    @registration_cost = atts['registration_cost']
+    @registration_type = atts['registration_type']
+    @document_types = atts['document_types']
+    @registration = atts['registration']
+  end
+
+  def self.find(id)
+    if transaction = self.transaction_list[id]
+      Transaction.new(transaction.merge('slug' => id))
+    else
+      raise TransactionNotFound
+    end
+  end
 
   def self.file_path
     @@file_path || Rails.root.join("lib/transactions.yml")
