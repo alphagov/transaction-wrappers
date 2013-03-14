@@ -28,12 +28,12 @@ class Transaction
   end
 
   def self.transaction_list
-    @@transaction_list || self.load_transaction_list
+    @@transaction_list ||= self.load_transaction_list
   end
 
   private
 
   def self.load_transaction_list
-    @@transaction_list = YAML.load( File.open( self.file_path ) )
+    YAML.load( File.open( self.file_path ) )
   end
 end

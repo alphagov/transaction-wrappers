@@ -4,6 +4,12 @@ describe Transaction do
 
   before do
     Transaction.file_path = Rails.root.join("spec/fixtures/transactions.yml")
+    Transaction.transaction_list = nil
+  end
+
+  after do
+    Transaction.file_path = nil
+    Transaction.transaction_list = nil
   end
 
   describe "loads and memoizes the list of transactions" do
@@ -26,10 +32,10 @@ describe Transaction do
     end
 
     it "does not load the list of transactions more than once" do
-      File.should_receive(:open).with(Transaction.file_path).once.and_return( File.open(Transaction.file_path) )
+      YAML.should_receive(:load).once.and_return( "list content" )
 
-      Transaction.transaction_list
-      Transaction.transaction_list
+      Transaction.transaction_list.should == "list content"
+      Transaction.transaction_list.should == "list content"
     end
   end
 
