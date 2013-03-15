@@ -55,12 +55,28 @@
               </p>
             <% end %>
 
-            <p>
-              <%= label_tag "transaction_postage" do %>
-                Do you require postage? This costs &pound;<%= @transaction.postage_cost %>.<br />
-                <%= select_tag "transaction[postage]", options_for_select([["Yes", "yes"], ["No", "no"]]), :id => "transaction_postage" %>
-              <% end %>
-            </p>
+            <% if @transaction.postage_options.present? %>
+              <p>
+                Which postage method do you require?
+              </p>
+
+              <ul>
+                <% @transaction.postage_options.each do |value,option| %>
+                <li>
+                  <%= label_tag "transaction_postage_option_#{value}" do %>
+                    <%= radio_button_tag "transaction[postage_option]", value %> <%= option['label'] %> - &pound;<%= option['cost'] %>
+                  <% end %>
+                </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p>
+                <%= label_tag "transaction_postage" do %>
+                  Do you require postage? This costs &pound;<%= @transaction.postage_cost %>.<br />
+                  <%= select_tag "transaction[postage]", options_for_select([["Yes", "yes"], ["No", "no"]]), :id => "transaction_postage" %>
+                <% end %>
+              </p>
+            <% end %>
 
             <p id="get-started" class="get-started group">
               <button class="button" type="submit" >Calculate total</button>
