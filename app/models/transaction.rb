@@ -2,8 +2,6 @@ class Transaction
   attr_reader :title, :slug, :document_cost, :postage_cost, :registration_cost, :registration_type, :document_types, :registration
   cattr_writer :file_path, :transaction_list
 
-  class TransactionNotFound < Exception; end
-  class InvalidDocumentType < Exception; end
 
   def initialize(atts)
     @title = atts['title']
@@ -15,6 +13,8 @@ class Transaction
     @document_types = atts['document_types']
     @registration = atts['registration']
   end
+  class TransactionNotFound < StandardError; end
+  class InvalidDocumentType < StandardError; end
 
   def calculate_total(values)
     calculator = TransactionCalculator.new(self)
