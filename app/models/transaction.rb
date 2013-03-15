@@ -1,18 +1,6 @@
-class Transaction
-  attr_reader :title, :slug, :document_cost, :postage_cost, :registration_cost, :registration_type, :document_types, :registration
+class Transaction < OpenStruct
   cattr_writer :file_path, :transaction_list
 
-
-  def initialize(atts)
-    @title = atts['title']
-    @slug = atts['slug']
-    @document_cost = atts['document_cost']
-    @postage_cost = atts['postage_cost']
-    @registration_cost = atts['registration_cost']
-    @registration_type = atts['registration_type']
-    @document_types = atts['document_types']
-    @registration = atts['registration']
-  end
   class TransactionNotFound < StandardError; end
   class InvalidDocumentType < StandardError; end
 
