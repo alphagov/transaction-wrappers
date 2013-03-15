@@ -3,6 +3,7 @@ class Transaction
   cattr_writer :file_path, :transaction_list
 
   class TransactionNotFound < Exception; end
+  class InvalidDocumentType < Exception; end
 
   def initialize(atts)
     @title = atts['title']
@@ -13,6 +14,11 @@ class Transaction
     @registration_type = atts['registration_type']
     @document_types = atts['document_types']
     @registration = atts['registration']
+  end
+
+  def calculate_total(values)
+    calculator = TransactionCalculator.new(self)
+    calculator.calculate(values)
   end
 
   def self.find(id)
