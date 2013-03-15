@@ -18,10 +18,7 @@ gem 'exception_notification', "3.0.1"
 gem 'aws-ses', :require => 'aws/ses' # Needed by exception_notification
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
   gem 'govuk_frontend_toolkit', '0.10.0'
-  gem 'uglifier', '>= 1.0.3'
 end
 
 group :development, :test do
