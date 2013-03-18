@@ -5,3 +5,4 @@ en:
   epdq:
     errors:
       document_type: Please choose a document type
+      postage_option: Please choose a postage option
