@@ -9,7 +9,6 @@
     </nav>
   </header>
   <div class="article-container group">
-    <%= render "partials/transactions/#{@transaction.slug}/intro" %>
       <article role="article" class="group">
        <div class="inner">
           <%= form_tag transaction_confirm_path(@transaction.slug) do %>
@@ -19,65 +18,7 @@
               <% end %>
             <% end %>
 
-            <% if @transaction.document_types.present? %>
-              <p>What type of document do you require?</p>
-
-              <ul>
-                <% @transaction.document_types.each do |value,label| %>
-                <li>
-                  <%= label_tag "transaction_document_type_#{value}" do %>
-                    <%= radio_button_tag "transaction[document_type]", value %> <%= label %>
-                  <% end %>
-                </li>
-                <% end %>
-              </ul>
-            <% end %>
-
-            <% if @transaction.registration %>
-              <p>
-                <%= label_tag "transaction_registration_count" do %>
-                  How many <%= @transaction.registration_type %> registrations do you need to register?<br />Each registration costs &pound;<%= @transaction.registration_cost %>.<br />
-                  <%= select_tag "transaction[registration_count]", options_for_select(1..9), :id => "transaction_registration_count" %>
-                <% end %>
-              </p>
-
-              <p>
-                <%= label_tag "transaction_document_count" do %>
-                  How many <%= @transaction.registration_type %> certificates do you require?<br />Each certificate costs &pound;<%= @transaction.document_cost %>.<br />
-                  <%= select_tag "transaction[document_count]", options_for_select(1..9), :id => "transaction_document_count" %>
-                <% end %>
-              </p>
-            <% else %>
-              <p>
-                <%= label_tag "transaction_document_count" do %>
-                  How many documents do you require?<br />Each document costs &pound;<%= @transaction.document_cost %>.<br />
-                  <%= select_tag "transaction[document_count]", options_for_select(1..9), :id => "transaction_document_count" %>
-                <% end %>
-              </p>
-            <% end %>
-
-            <% if @transaction.postage_options.present? %>
-              <p>
-                Which postage method do you require?
-              </p>
-
-              <ul>
-                <% @transaction.postage_options.each do |value,option| %>
-                <li>
-                  <%= label_tag "transaction_postage_option_#{value}" do %>
-                    <%= radio_button_tag "transaction[postage_option]", value %> <%= option['label'] %> - &pound;<%= "%0.2f" % option['cost'] %>
-                  <% end %>
-                </li>
-                <% end %>
-              </ul>
-            <% else %>
-              <p>
-                <%= label_tag "transaction_postage" do %>
-                  Do you require postage? This costs &pound;<%= @transaction.postage_cost %>.<br />
-                  <%= select_tag "transaction[postage]", options_for_select([["Yes", "yes"], ["No", "no"]]), :id => "transaction_postage" %>
-                <% end %>
-              </p>
-            <% end %>
+            <%= render "partials/transactions/#{@transaction.slug}/intro" %>
 
             <p id="get-started" class="get-started group">
               <button class="button" type="submit" >Calculate total</button>
