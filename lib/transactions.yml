@@ -26,8 +26,8 @@ pay-to-register-birth-abroad:
   registration: true
   registration_cost: 105
   registration_type: birth
-get-a-document-legalised-by-post:
-  title: Get a document legalised by post
+pay-to-get-documents-legalised-by-post:
+  title: Pay to get documents legalised by post
   document_cost: 30
   postage_options:
     courier-or-prepaid:

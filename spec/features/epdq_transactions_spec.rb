@@ -290,6 +290,79 @@ feature "epdq transactions" do
     end
   end
 
+  describe "paying to get a document legalised by post" do
+    it "renders the content and form" do
+      visit "/pay-to-get-documents-legalised-by-post"
+
+      within(:css, "header.page-header") do
+        page.should have_content("Pay to get documents legalised by post")
+      end
+
+      within(:css, "form") do
+        page.should have_content("How many documents do you require?")
+
+        page.should have_content("Each document costs £30.")
+        page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
+
+        page.should have_content("Which postage method do you require?")
+        page.should have_unchecked_field("Courier or prepaid envelope - £0")
+        page.should have_unchecked_field("Delivery to the United Kingdom or British Forces Post Office - £6")
+        page.should have_unchecked_field("Delivery to the United Kingdom or British Forces Post Office, with insurance - £12")
+        page.should have_unchecked_field("Europe (excluding Russia, Turkey, Bosnia, Croatia, Albania, Belarus, Macedonia, Moldova, Montenegro, Ukraine) - £14.50")
+        page.should have_unchecked_field("Rest of the World - £25")
+
+        page.should have_button("Calculate total")
+      end
+    end
+
+    context "given correct data" do
+      before do
+        visit "/pay-to-get-documents-legalised-by-post"
+
+        within(:css, "form") do
+          select "1", :from => "How many documents do you require?"
+          choose "Rest of the World - £25"
+        end
+
+        click_on "Calculate total"
+      end
+
+      it "calculates a total" do
+        page.should have_content("The cost for 1 document, plus Rest of the World postage, is £55")
+      end
+
+      it "generates an EPDQ form" do
+        page.should have_selector("form[action^='https://mdepayments.epdq.co.uk'][method='post']")
+
+        within(:css, "form.epdq-submit") do
+          page.should have_selector("input[name='ORDERID']")
+          page.should have_selector("input[name='PSPID']")
+          page.should have_selector("input[name='SHASIGN']")
+
+          page.should have_selector("input[name='AMOUNT'][value='5500']")
+          page.should have_selector("input[name='CURRENCY'][value='GBP']")
+          page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-to-get-documents-legalised-by-post/done']")
+
+          page.should have_button("Pay")
+        end
+      end
+    end
+
+    it "displays an error and renders the form given incorrect data" do
+      visit "/pay-to-get-documents-legalised-by-post"
+
+      within(:css, "form") do
+        select "3", :from => "How many documents do you require?"
+      end
+
+      click_on "Calculate total"
+
+      page.should have_selector("p.error-message", :text => "Please choose a postage option")
+      page.should have_content("Which postage method do you require?")
+    end
+  end
+
   it "renders a 404 error on for an invalid transaction slug" do
     visit "/pay-for-bunting"
 
