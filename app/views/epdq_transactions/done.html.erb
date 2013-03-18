@@ -11,8 +11,7 @@
   <div class="article-container group">
       <article role="article" class="group">
        <div class="inner">
-          <p>Your payment to the Foreign &amp; Commonwealth Office is complete.</p>
-          <p>Your payment ID is <strong><%= @epdq_response.parameters[:payid] %></strong>.</p>
+         <%= render "views/partials/transactions/#{@transaction.slug}/done" %>
        </div>
      </article>
   </div>

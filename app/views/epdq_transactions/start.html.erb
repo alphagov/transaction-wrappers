@@ -9,6 +9,7 @@
     </nav>
   </header>
   <div class="article-container group">
+    <%= render "partials/transactions/#{@transaction.slug}/intro" %>
       <article role="article" class="group">
        <div class="inner">
           <%= form_tag transaction_confirm_path(@transaction.slug) do %>
