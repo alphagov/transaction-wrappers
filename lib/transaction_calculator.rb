@@ -9,11 +9,22 @@ class TransactionCalculator
     document_count = values[:document_count].to_i
     postage = values[:postage] == "yes"
     document_type = values[:document_type]
+    postage_option = values[:postage_option]
 
     item_list = []
 
     document_total = @transaction.document_cost * document_count
-    postage_total = postage ? @transaction.postage_cost : 0
+
+    if @transaction.postage_options
+      postage_option = @transaction.postage_options[postage_option]
+
+      raise Transaction::InvalidPostageOption unless postage_option
+
+      postage_total = postage_option['cost']
+    else
+      postage_total = postage ? @transaction.postage_cost : 0
+    end
+
     total_cost = document_total + postage_total
 
     if @transaction.registration
@@ -33,7 +44,12 @@ class TransactionCalculator
     end
 
     item_list << "#{document_count} " + pluralize_document_type_label(document_count, document_type_label || "document")
-    item_list << ", plus postage," if postage
+
+    if postage_option
+      item_list << ", plus #{postage_option['label']} postage,"
+    elsif postage
+      item_list << ", plus postage,"
+    end
 
     return OpenStruct.new(:total_cost => total_cost, :item_list => item_list.join(''))
   end

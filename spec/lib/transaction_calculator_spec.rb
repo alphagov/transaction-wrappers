@@ -114,4 +114,50 @@ describe TransactionCalculator do
     end
   end
 
+  describe "given a transaction with postage options" do
+    before do
+      @transaction = OpenStruct.new(
+        :document_cost => 20,
+        :postage_options => {
+          "horse-and-cart" => {
+            "label" => "Horse and cart",
+            "cost" => 10
+          },
+          "iron-horse" => {
+            "label" => "Iron horse",
+            "cost" => 20
+          },
+          "flying-machine" => {
+            "label" => "Flying machine",
+            "cost" => 35
+          }
+        })
+      @calculator = TransactionCalculator.new(@transaction)
+    end
+
+    it "calculates the cost of postage" do
+      @calculator.calculate(:postage_option => "iron-horse").total_cost.should == 20
+    end
+
+    it "calculates the cost of postage and documents" do
+      @calculator.calculate(:postage_option => "flying-machine", :document_count => 3).total_cost.should == 95
+    end
+
+    it "builds an item list including the postage type" do
+      @calculator.calculate(:postage_option => "horse-and-cart").item_list.should == "0 documents, plus Horse and cart postage,"
+    end
+
+    it "builds an item list of multiple documents including the postage type" do
+      @calculator.calculate(:postage_option => "flying-machine", :document_count => 3).item_list.should == "3 documents, plus Flying machine postage,"
+    end
+
+    it "raises an error if no postage option set" do
+      expect{ @calculator.calculate(:postage_option => nil) }.to raise_error(Transaction::InvalidPostageOption)
+    end
+
+    it "raises an error if postage option doesn't exist" do
+      expect{ @calculator.calculate(:postage_option => "mailman") }.to raise_error(Transaction::InvalidPostageOption)
+    end
+  end
+
 end
