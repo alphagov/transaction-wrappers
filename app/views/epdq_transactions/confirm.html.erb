@@ -11,7 +11,7 @@
   <div class="article-container group">
       <article role="article" class="group">
        <div class="inner">
-          <p>The cost for <%= @calculation.item_list %> is &pound;<%= "%0.2f" % @calculation.total_cost %>.</p>
+          <p>The cost for <%= @calculation.item_list %> is &pound;<%= format_money @calculation.total_cost %>.</p>
 
           <%= form_tag @epdq_request.request_url, :class => "epdq-submit" do %>
             <%- @epdq_request.form_attributes.each do |k, v| -%>

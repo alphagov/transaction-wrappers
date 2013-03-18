@@ -1,13 +1,10 @@
 module ApplicationHelper
 
-  def pluralize_document_type_label(quantity, label)
-    return label if quantity == 1
-
-    case label
-    when /\Acertificate/i then label.sub(/\A([cC])ertificate/i, '\1ertificates')
-    when "Nulla osta" then "Nulla ostas" # pluralize thinks this is already plural
+  def format_money(value)
+    case value.to_s
+    when %r{\A[0-9]+\z} then value
     else
-      label.pluralize(quantity)
+      "%0.2f" % value
     end
   end
 end
