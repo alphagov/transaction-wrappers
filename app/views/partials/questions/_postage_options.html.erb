@@ -1,0 +1,11 @@
+<p><%= raw question_text %></p>
+
+<ul>
+  <% @transaction.postage_options.each do |value,option| %>
+    <li>
+      <%= label_tag "transaction_postage_option_#{value}" do %>
+        <%= radio_button_tag "transaction[postage_option]", value %> <%= option['label'] %> - &pound;<%= "%0.2f" % option['cost'] %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
