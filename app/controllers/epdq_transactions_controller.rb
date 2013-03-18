@@ -15,6 +15,9 @@ class EpdqTransactionsController < ApplicationController
   rescue Transaction::InvalidDocumentType
     @errors = [:document_type]
     render :action => "start"
+  rescue Transaction::InvalidPostageOption
+    @errors = [:postage_option]
+    render :action => "start"
   end
 
   def done
