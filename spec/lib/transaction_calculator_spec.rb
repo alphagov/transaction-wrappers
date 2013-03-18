@@ -160,4 +160,22 @@ describe TransactionCalculator do
     end
   end
 
+  describe "given a transaction without postage" do
+    before do
+      @transaction = OpenStruct.new(
+        :document_cost => 20,
+        :postage_cost => false
+      )
+      @calculator = TransactionCalculator.new(@transaction)
+    end
+
+    it "calculates the document cost" do
+      @calculator.calculate(:document_count => 3).total_cost.should == 60
+    end
+
+    it "builds an item list which does not include postage" do
+      @calculator.calculate(:document_count => 3).item_list.should == "3 documents"
+    end
+  end
+
 end

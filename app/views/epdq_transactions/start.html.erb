@@ -69,7 +69,7 @@
                 </li>
                 <% end %>
               </ul>
-            <% else %>
+            <% elsif @transaction.postage_cost.present? %>
               <p>
                 <%= label_tag "transaction_postage" do %>
                   Do you require postage? This costs &pound;<%= format_money @transaction.postage_cost %>.<br />

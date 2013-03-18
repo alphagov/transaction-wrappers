@@ -363,6 +363,62 @@ feature "epdq transactions" do
     end
   end
 
+  describe "paying to get a document legalised using the drop-off service" do
+    it "renders the content and form" do
+      visit "/pay-for-documents-legalised-drop-off"
+
+      within(:css, "header.page-header") do
+        page.should have_content("Pay to get documents legalised using the drop-off service")
+      end
+
+      within(:css, "form") do
+        page.should have_content("How many documents do you require?")
+
+        page.should have_content("Each document costs £75.")
+        page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
+
+        page.should have_no_content("Which postage method do you require?")
+        page.should have_no_content("Do you require postage?")
+        page.should have_no_select("transaction_postage")
+
+        page.should have_button("Calculate total")
+      end
+    end
+
+    context "given correct data" do
+      before do
+        visit "/pay-for-documents-legalised-drop-off"
+
+        within(:css, "form") do
+          select "5", :from => "How many documents do you require?"
+        end
+
+        click_on "Calculate total"
+      end
+
+      it "calculates a total" do
+        page.should have_content("The cost for 5 documents is £375.")
+      end
+
+      it "generates an EPDQ form" do
+        page.should have_selector("form[action^='https://mdepayments.epdq.co.uk'][method='post']")
+
+        within(:css, "form.epdq-submit") do
+          page.should have_selector("input[name='ORDERID']")
+          page.should have_selector("input[name='PSPID']")
+          page.should have_selector("input[name='SHASIGN']")
+
+          page.should have_selector("input[name='AMOUNT'][value='37500']")
+          page.should have_selector("input[name='CURRENCY'][value='GBP']")
+          page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-for-documents-legalised-drop-off/done']")
+
+          page.should have_button("Pay")
+        end
+      end
+    end
+  end
+
   it "renders a 404 error on for an invalid transaction slug" do
     visit "/pay-for-bunting"
 

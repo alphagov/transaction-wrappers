@@ -45,3 +45,7 @@ pay-to-get-documents-legalised-by-post:
     rest-of-world:
       label: "Rest of the World"
       cost: 25
+pay-for-documents-legalised-drop-off:
+  title: Pay to get documents legalised using the drop-off service
+  document_cost: 75
+  postage_cost: false
