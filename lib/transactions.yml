@@ -26,3 +26,26 @@ pay-to-register-birth-abroad:
   registration: true
   registration_cost: 105
   registration_type: birth
+pay-to-get-documents-legalised-by-post:
+  title: Pay to get documents legalised by post
+  document_cost: 30
+  postage_options:
+    courier-or-prepaid:
+      label: Courier or prepaid envelope
+      cost: 0
+    uk:
+      label: Delivery to the United Kingdom or British Forces Post Office
+      cost: 6
+    uk-with-insurance:
+      label: "Delivery to the United Kingdom or British Forces Post Office, with insurance"
+      cost: 12
+    europe:
+      label: "Europe (excluding Russia, Turkey, Bosnia, Croatia, Albania, Belarus, Macedonia, Moldova, Montenegro, Ukraine)"
+      cost: 14.50
+    rest-of-world:
+      label: "Rest of the World"
+      cost: 25
+pay-for-documents-legalised-drop-off:
+  title: Pay to get documents legalised using the drop-off service
+  document_cost: 75
+  postage_cost: false

@@ -3,6 +3,7 @@ class Transaction < OpenStruct
 
   class TransactionNotFound < StandardError; end
   class InvalidDocumentType < StandardError; end
+  class InvalidPostageOption < StandardError; end
 
   def calculate_total(values)
     calculator = TransactionCalculator.new(self)
