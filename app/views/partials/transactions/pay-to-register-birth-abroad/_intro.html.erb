@@ -1,4 +1,5 @@
-<%= render "partials/questions/number_dropdown", :question_text => "How many registrations do you need to pay for? Each one costs &pound;105.", :transaction_key => "registration_count" %>
-<%= render "partials/questions/number_dropdown", :question_text => "How many birth certificates do you need? Each one costs &pound;65.", :transaction_key => "document_count" %>
+<%= render "partials/questions/registration_count", :question_text => "How many registrations do you need to pay for? Each one costs &pound;105." %>
+
+<%= render "partials/questions/certificate_count", :question_text => "How many birth certificates do you need? Each one costs &pound;65." %>
 
 <%= render "partials/questions/postage_fee_yes_no", :question_text => "Do you require postage? This costs &pound;#{@transaction.postage_cost}.<br />" %>
