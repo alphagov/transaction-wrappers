@@ -6,6 +6,10 @@ class EpdqTransactionsController < ApplicationController
   def index
   end
 
+  def show
+    redirect_to transaction_path(@transaction.slug)
+  end
+
   def start
   end
 
