@@ -1,0 +1,28 @@
+<p>Your payment to the Foreign &amp; Commonwealth Office is complete.</p>
+<p>Your payment ID is <strong><%= @epdq_response.parameters[:payid] %></strong>.</p>
+<h2>Payment confirmation</h2>
+
+<p>Your payment of &pound;<%= @transaction.total_cost %> has been received by the Legalisation Office.</p>
+
+<p>Your payment number is <%= @epdq_response.parameters[:payid] %>.</p>
+
+<h2>What to do next</h2>
+
+<p>Print out this page. You’ll also get an email confirmation.</p>
+
+<p>If you can’t print out this page, note down your payment number and bring it with your documents.</p>
+
+<p>Contact the Legalisation Office if you have any problems.</p>
+
+<div class="contact">
+  <strong>Legalisation Office</strong>
+  <p>020 3102 5141</p>
+</div>
+
+
+<h2>Opening times</h2>
+<p>The opening hours of the drop-off office are:</p>
+<ul>
+  <li>- 9am to midday (the last drop-off time for pre-lunch pickup is 10:30am)</li>
+  <li>- 1pm to 5pm (the last drop-off time for same day collection is 3:30pm)</li>
+</ul>
