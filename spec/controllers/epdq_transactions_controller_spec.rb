@@ -15,7 +15,7 @@ describe EpdqTransactionsController do
 
     context "given a valid transaction as the slug" do
       before do
-        get :start, :slug => "pay-for-certificates-for-marriage"
+        get :start, :slug => "pay-foreign-marriage-certificates"
       end
 
       it "is successful" do
@@ -27,8 +27,8 @@ describe EpdqTransactionsController do
       end
 
       it "assigns the transaction details" do
-        assigns(:transaction).title.should == "Pay for certificates for marriage"
-        assigns(:transaction).slug.should == "pay-for-certificates-for-marriage"
+        assigns(:transaction).title.should == "Payment for certificates to get married abroad"
+        assigns(:transaction).slug.should == "pay-foreign-marriage-certificates"
         assigns(:transaction).document_cost.should == 65
         assigns(:transaction).registration.should be_false
       end
@@ -44,7 +44,7 @@ describe EpdqTransactionsController do
     describe "with multiple document types" do
       context "given valid values" do
         before do
-          post :confirm, :slug => "pay-for-certificates-for-marriage", :transaction => {
+          post :confirm, :slug => "pay-foreign-marriage-certificates", :transaction => {
             :document_count => "5",
             :postage => "yes",
             :document_type => "nulla-osta"
@@ -65,20 +65,20 @@ describe EpdqTransactionsController do
         end
 
         it "assigns the transaction details" do
-          assigns(:transaction).title.should == "Pay for certificates for marriage"
-          assigns(:transaction).slug.should == "pay-for-certificates-for-marriage"
+          assigns(:transaction).title.should == "Payment for certificates to get married abroad"
+          assigns(:transaction).slug.should == "pay-foreign-marriage-certificates"
         end
 
         it "assigns an EPDQ request with the correct amount" do
           assigns(:epdq_request).parameters[:orderid].should_not be_blank
           assigns(:epdq_request).parameters[:amount].should == 33500
-          assigns(:epdq_request).parameters[:accepturl].should == "http://www.dev.gov.uk/pay-for-certificates-for-marriage/done"
+          assigns(:epdq_request).parameters[:accepturl].should == "http://www.dev.gov.uk/pay-foreign-marriage-certificates/done"
         end
       end
 
       context "given no document type" do
         before do
-          post :confirm, :slug => "pay-for-certificates-for-marriage", :transaction => {
+          post :confirm, :slug => "pay-foreign-marriage-certificates", :transaction => {
             :document_count => "5",
             :postage => "yes",
           }
@@ -95,7 +95,7 @@ describe EpdqTransactionsController do
 
       context "given an invalid document type" do
         before do
-          post :confirm, :slug => "pay-for-certificates-for-marriage", :transaction => {
+          post :confirm, :slug => "pay-foreign-marriage-certificates", :transaction => {
             :document_count => "5",
             :postage => "yes",
             :document_type => "nyan"
@@ -136,7 +136,7 @@ describe EpdqTransactionsController do
         end
 
         it "assigns the transaction details" do
-          assigns(:transaction).title.should == "Pay to register a birth abroad in the UK"
+          assigns(:transaction).title.should == "Payment to register a birth abroad"
           assigns(:transaction).slug.should == "pay-to-register-birth-abroad"
         end
 
@@ -151,7 +151,7 @@ describe EpdqTransactionsController do
     describe "without multiple document types" do
       context "given valid values" do
         before do
-          post :confirm, :slug => "pay-to-deposit-marriage-documents", :transaction => {
+          post :confirm, :slug => "deposit-foreign-marriage", :transaction => {
             :document_count => "3",
             :postage => "no"
           }
@@ -182,7 +182,7 @@ describe EpdqTransactionsController do
     describe "for a standard transaction" do
       context "given valid parameters" do
         before do
-          get :done, :slug => "pay-to-deposit-marriage-documents",
+          get :done, :slug => "deposit-foreign-marriage",
             "orderID" => "test",
             "currency" => "GBP",
             "amount" => 45,
@@ -207,8 +207,8 @@ describe EpdqTransactionsController do
         end
 
         it "assigns the transaction details" do
-          assigns(:transaction).title.should == "Pay to deposit marriage and civil partnership documents in the UK"
-          assigns(:transaction).slug.should == "pay-to-deposit-marriage-documents"
+          assigns(:transaction).title.should == "Deposit foreign marriage or civil partnership certificates"
+          assigns(:transaction).slug.should == "deposit-foreign-marriage"
         end
 
         it "assigns the epdq response" do
@@ -219,7 +219,7 @@ describe EpdqTransactionsController do
 
       context "given invalid parameters" do
         before do
-          get :done, :slug => "pay-to-deposit-marriage-documents",
+          get :done, :slug => "deposit-foreign-marriage",
             "orderID" => "test",
             "currency" => "GBP",
             "amount" => 45,

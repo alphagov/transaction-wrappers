@@ -1,6 +1,6 @@
 <p>
   <%= label_tag "transaction_postage" do %>
-    <%=raw(question_text)%>
+    <%= raw(question_text) %>
     <%= select_tag "transaction[postage]", options_for_select([["Yes", "yes"], ["No", "no"]]), :id => "transaction_postage" %>
   <% end %>
 </p>

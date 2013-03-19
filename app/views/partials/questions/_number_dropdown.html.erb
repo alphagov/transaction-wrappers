@@ -1,6 +1,6 @@
 <p>
-<%= label_tag "transaction_#{transaction_key}" do %>
-  <%= raw(question_text) %><br />
-  <%= select_tag "transaction[#{transaction_key}]", options_for_select(1..9), :id => "transaction_#{transaction_key}" %>
-                <% end %>
+  <%= label_tag "transaction_#{transaction_key}" do %>
+    <%= raw(question_text) %><br />
+    <%= select_tag "transaction[#{transaction_key}]", options_for_select(1..9), :id => "transaction_#{transaction_key}" %>
+  <% end %>
 </p>
