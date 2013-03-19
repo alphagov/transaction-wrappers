@@ -2,6 +2,23 @@ require 'spec_helper'
 
 describe EpdqTransactionsController do
 
+  describe "redirection to start page" do
+    it "returns 404 status if slug is empty" do
+      get :show, :slug => ""
+      response.should be_not_found
+    end
+
+    it "returns 404 status if slug is not found" do
+      get :show, :slug => "pay-for-all-the-things"
+      response.should be_not_found
+    end
+
+    it "redirects to the start page for a valid slug" do
+      get :show, :slug => "pay-foreign-marriage-certificates"
+      response.should redirect_to("/pay-foreign-marriage-certificates/start")
+    end
+  end
+
   describe "start pages" do
     it "returns 404 status if slug is empty" do
       get :start, :slug => ""

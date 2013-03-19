@@ -4,11 +4,20 @@ require "spec_helper"
 feature "epdq transactions" do
 
   describe "paying for a certificate for marriage" do
-    it "renders the content and form" do
+    it "redirects to the start page" do
       visit "/pay-foreign-marriage-certificates"
 
       within(:css, ".inner") do
         page.should have_content("Pay for documents you need from the Foreign & Commonwealth Office (FCO) to prove you’re allowed to get married abroad.")
+        current_path.should == "/pay-foreign-marriage-certificates/start"
+      end
+    end
+
+    it "renders the content and form" do
+      visit "/pay-foreign-marriage-certificates/start"
+
+      within(:css, "header.page-header") do
+        page.should have_content("Payment for certificates to get married abroad")
       end
 
       within(:css, "form") do
@@ -29,7 +38,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-foreign-marriage-certificates"
+        visit "/pay-foreign-marriage-certificates/start"
 
         within(:css, "form") do
           choose "Certificate of custom law"
@@ -63,7 +72,7 @@ feature "epdq transactions" do
     end
 
     it "displays an error and renders the form given incorrect data" do
-      visit "/pay-foreign-marriage-certificates"
+      visit "/pay-foreign-marriage-certificates/start"
 
       within(:css, "form") do
         select "3", :from => "transaction_document_count"
@@ -113,7 +122,7 @@ feature "epdq transactions" do
 
   describe "paying to register a birth abroad" do
     it "renders the content and form" do
-      visit "/pay-register-birth-abroad"
+      visit "/pay-register-birth-abroad/start"
 
       within(:css, "header.page-header") do
         page.should have_content("Payment to register a birth abroad")
@@ -136,7 +145,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-register-birth-abroad"
+        visit "/pay-register-birth-abroad/start"
 
         within(:css, "form") do
           select "2", :from => "transaction_registration_count"
@@ -172,7 +181,7 @@ feature "epdq transactions" do
 
   describe "paying to register a death abroad" do
     it "renders the content and form" do
-      visit "/pay-register-death-abroad"
+      visit "/pay-register-death-abroad/start"
 
       within(:css, "header.page-header") do
         page.should have_content("Payment to register a death abroad")
@@ -196,7 +205,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-register-death-abroad"
+        visit "/pay-register-death-abroad/start"
 
         within(:css, "form") do
           select "5", :from => "transaction_registration_count"
@@ -232,7 +241,7 @@ feature "epdq transactions" do
 
   describe "paying to deposit marriage and civil partnership documents" do
     it "renders the content and form" do
-      visit "/deposit-foreign-marriage"
+      visit "/deposit-foreign-marriage/start"
 
       within(:css, "header.page-header") do
         page.should have_content("Deposit foreign marriage or civil partnership certificates")
@@ -253,7 +262,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/deposit-foreign-marriage"
+        visit "/deposit-foreign-marriage/start"
 
         within(:css, "form") do
           select "1", :from => "transaction_document_count"
@@ -288,7 +297,7 @@ feature "epdq transactions" do
 
   describe "paying to get a document legalised by post" do
     it "renders the content and form" do
-      visit "/pay-legalisation-post"
+      visit "/pay-legalisation-post/start"
 
       within(:css, "header.page-header") do
         page.should have_content("Pay to legalise documents by post")
@@ -313,7 +322,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-legalisation-post"
+        visit "/pay-legalisation-post/start"
 
         within(:css, "form") do
           select "1", :from => "transaction_document_count"
@@ -346,7 +355,7 @@ feature "epdq transactions" do
     end
 
     it "displays an error and renders the form given incorrect data" do
-      visit "/pay-legalisation-post"
+      visit "/pay-legalisation-post/start"
 
       within(:css, "form") do
         select "3", :from => "transaction_document_count"
@@ -361,7 +370,7 @@ feature "epdq transactions" do
 
   describe "paying to get a document legalised using the drop-off service" do
     it "renders the content and form" do
-      visit "/pay-legalisation-drop-off"
+      visit "/pay-legalisation-drop-off/start"
 
       within(:css, "header.page-header") do
         page.should have_content("Pay to legalise documents using the drop-off service")
@@ -383,7 +392,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-legalisation-drop-off"
+        visit "/pay-legalisation-drop-off/start"
 
         within(:css, "form") do
           select "5", :from => "transaction_document_count"
@@ -416,7 +425,7 @@ feature "epdq transactions" do
   end
 
   it "renders a 404 error on for an invalid transaction slug" do
-    visit "/pay-for-bunting"
+    visit "/pay-for-bunting/start"
 
     page.status_code.should == 404
   end
