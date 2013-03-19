@@ -1,0 +1,10 @@
+<p><%= question_text %></p>
+<ul>
+  <% @transaction.document_types.each do |value,label| %>
+    <li>
+      <%= label_tag "transaction_document_type_#{value}" do %>
+        <%= radio_button_tag "transaction[document_type]", value %> <%= label %>
+      <% end %>
+  </li>
+<% end %>
+</ul>
