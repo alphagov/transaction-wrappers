@@ -7,23 +7,20 @@ feature "epdq transactions" do
     it "renders the content and form" do
       visit "/pay-foreign-marriage-certificates"
 
-      within(:css, "header.page-header") do
-        page.should have_content("Payment for certificates to get married abroad")
+      within(:css, ".inner") do
+        page.should have_content("Pay for documents you need from the Foreign & Commonwealth Office (FCO) to prove you’re allowed to get married abroad.")
       end
 
       within(:css, "form") do
-        page.should have_no_content("How many birth registrations do you need to register?")
-
-        page.should have_content("What type of document do you require?")
+        page.should have_content("Pay for documents you need from the Foreign & Commonwealth Office (FCO) to prove you’re allowed to get married abroad.")
         page.should have_unchecked_field("Certificate of no impediment")
         page.should have_unchecked_field("Nulla osta")
         page.should have_unchecked_field("Certificate of custom law")
 
-        page.should have_content("How many documents do you require?")
-        page.should have_content("Each document costs £65.")
+        page.should have_content("Each certificate costs £65.")
         page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
 
-        page.should have_content("Do you require postage? This costs £10.")
+        page.should have_content("Do you want to pay the £10 postage fee to have your documents returned?")
         page.should have_select("transaction_postage", :options => ["Yes", "No"])
 
         page.should have_button("Calculate total")
@@ -36,8 +33,8 @@ feature "epdq transactions" do
 
         within(:css, "form") do
           choose "Certificate of custom law"
-          select "3", :from => "How many documents do you require?"
-          select "Yes", :from => "Do you require postage?"
+          select "3", :from => "transaction_document_count"
+          select "Yes", :from => "transaction_postage"
         end
 
         click_on "Calculate total"
@@ -69,14 +66,14 @@ feature "epdq transactions" do
       visit "/pay-foreign-marriage-certificates"
 
       within(:css, "form") do
-        select "3", :from => "How many documents do you require?"
-        select "Yes", :from => "Do you require postage?"
+        select "3", :from => "transaction_document_count"
+        select "Yes", :from => "transaction_postage"
       end
 
       click_on "Calculate total"
 
       page.should have_selector("p.error-message", :text => "Please choose a document type")
-      page.should have_content("What type of document do you require?")
+      page.should have_content("Which type of certificate do you need?")
     end
 
     describe "visiting the done page" do
@@ -90,7 +87,7 @@ feature "epdq transactions" do
             page.should have_content("Payment for certificates to get married abroad")
           end
 
-          page.should have_content("Your payment to the Foreign & Commonwealth Office is complete.")
+          page.should have_content("Your payment reference is")
         end
 
         it "should display the order number" do
@@ -123,12 +120,11 @@ feature "epdq transactions" do
       end
 
       within(:css, "form") do
-        page.should have_content("How many birth registrations do you need to register?")
-        page.should have_content("Each registration costs £105.")
+        page.should have_content("How many registrations do you need to pay for? Each one costs £105.")
         page.should have_select("transaction_registration_count", :options => ["1","2","3","4","5","6","7","8","9"])
 
-        page.should have_content("How many birth certificates do you require?")
-        page.should have_content("Each certificate costs £65.")
+        page.should have_content("How many birth certificates do you need?")
+        page.should have_content("Each one costs £65.")
         page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
 
         page.should have_content("Do you require postage? This costs £10.")
@@ -143,8 +139,8 @@ feature "epdq transactions" do
         visit "/pay-register-birth-abroad"
 
         within(:css, "form") do
-          select "2", :from => "How many birth registrations do you need to register?"
-          select "3", :from => "How many birth certificates do you require?"
+          select "2", :from => "transaction_registration_count"
+          select "3", :from => "transaction_document_count"
           select "Yes", :from => "Do you require postage?"
         end
 
@@ -183,15 +179,15 @@ feature "epdq transactions" do
       end
 
       within(:css, "form") do
-        page.should have_content("How many death registrations do you need to register?")
-        page.should have_content("Each registration costs £105.")
+        page.should have_content("Pay the Foreign & Commonwealth Office (FCO) to register the death of a British national abroad.")
+        page.should have_content("Each one costs £105.")
         page.should have_select("transaction_registration_count", :options => ["1","2","3","4","5","6","7","8","9"])
 
-        page.should have_content("How many death certificates do you require?")
-        page.should have_content("Each certificate costs £65.")
+        page.should have_content("How many death certificates do you need?")
+        page.should have_content("Each one costs £65.")
         page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
 
-        page.should have_content("Do you require postage? This costs £10.")
+        page.should have_content("Do you want to pay the £10 postage fee to have your documents returned?")
         page.should have_select("transaction_postage", :options => ["Yes", "No"])
 
         page.should have_button("Calculate total")
@@ -203,9 +199,9 @@ feature "epdq transactions" do
         visit "/pay-register-death-abroad"
 
         within(:css, "form") do
-          select "5", :from => "How many death registrations do you need to register?"
-          select "1", :from => "How many death certificates do you require?"
-          select "Yes", :from => "Do you require postage?"
+          select "5", :from => "transaction_registration_count"
+          select "1", :from => "transaction_document_count"
+          select "Yes", :from => "transaction_postage"
         end
 
         click_on "Calculate total"
@@ -243,12 +239,12 @@ feature "epdq transactions" do
       end
 
       within(:css, "form") do
-        page.should have_content("How many documents do you require?")
+        page.should have_content("Deposit your marriage or civil partnership certificate at the General Register Office (GRO) for safe-keeping if you got married aboard and you’re resident in the UK.")
 
-        page.should have_content("Each document costs £35.")
+        page.should have_content("Each one costs £35.")
         page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
 
-        page.should have_content("Do you require postage? This costs £10.")
+        page.should have_content("Do you want to pay the £10 postage fee to have your documents returned?")
         page.should have_select("transaction_postage", :options => ["Yes", "No"])
 
         page.should have_button("Calculate total")
@@ -260,8 +256,8 @@ feature "epdq transactions" do
         visit "/deposit-foreign-marriage"
 
         within(:css, "form") do
-          select "1", :from => "How many documents do you require?"
-          select "Yes", :from => "Do you require postage?"
+          select "1", :from => "transaction_document_count"
+          select "Yes", :from => "transaction_postage"
         end
 
         click_on "Calculate total"
@@ -299,12 +295,12 @@ feature "epdq transactions" do
       end
 
       within(:css, "form") do
-        page.should have_content("How many documents do you require?")
+        page.should have_content("How many documents do you want legalised?")
 
         page.should have_content("Each document costs £30.")
         page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
 
-        page.should have_content("Which postage method do you require?")
+        page.should have_content("How would you like your documents sent back to you?")
         page.should have_unchecked_field("Courier or prepaid envelope - £0")
         page.should have_unchecked_field("Delivery to the United Kingdom or British Forces Post Office - £6")
         page.should have_unchecked_field("Delivery to the United Kingdom or British Forces Post Office, with insurance - £12")
@@ -320,7 +316,7 @@ feature "epdq transactions" do
         visit "/pay-legalisation-post"
 
         within(:css, "form") do
-          select "1", :from => "How many documents do you require?"
+          select "1", :from => "transaction_document_count"
           choose "Rest of the World - £25"
         end
 
@@ -353,13 +349,13 @@ feature "epdq transactions" do
       visit "/pay-legalisation-post"
 
       within(:css, "form") do
-        select "3", :from => "How many documents do you require?"
+        select "3", :from => "transaction_document_count"
       end
 
       click_on "Calculate total"
 
       page.should have_selector("p.error-message", :text => "Please choose a postage option")
-      page.should have_content("Which postage method do you require?")
+      page.should have_content("How would you like your documents sent back to you?")
     end
   end
 
@@ -390,7 +386,7 @@ feature "epdq transactions" do
         visit "/pay-legalisation-drop-off"
 
         within(:css, "form") do
-          select "5", :from => "How many documents do you require?"
+          select "5", :from => "transaction_document_count"
         end
 
         click_on "Calculate total"
