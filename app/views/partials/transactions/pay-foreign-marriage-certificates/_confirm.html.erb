@@ -1,1 +1,1 @@
-<p>The cost will be &pound;[PRICE]</p>
+<p>The cost for <%= @calculation.item_list %> is &pound;<%= format_money @calculation.total_cost %>.</p>
