@@ -377,7 +377,7 @@ feature "epdq transactions" do
       end
 
       within(:css, "form") do
-        page.should have_content("How many documents do you require?")
+        page.should have_content("How many documents do you want legalised?")
 
         page.should have_content("Each document costs £75.")
         page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
