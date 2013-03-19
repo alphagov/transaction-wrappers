@@ -116,7 +116,7 @@ feature "epdq transactions" do
 
   describe "paying to register a birth abroad" do
     it "renders the content and form" do
-      visit "/pay-to-register-birth-abroad"
+      visit "/pay-register-birth-abroad"
 
       within(:css, "header.page-header") do
         page.should have_content("Payment to register a birth abroad")
@@ -140,7 +140,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-to-register-birth-abroad"
+        visit "/pay-register-birth-abroad"
 
         within(:css, "form") do
           select "2", :from => "How many birth registrations do you need to register?"
@@ -166,7 +166,7 @@ feature "epdq transactions" do
           page.should have_selector("input[name='AMOUNT'][value='41500']")
           page.should have_selector("input[name='CURRENCY'][value='GBP']")
           page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
-          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-to-register-birth-abroad/done']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-register-birth-abroad/done']")
 
           page.should have_button("Pay")
         end

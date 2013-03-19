@@ -115,7 +115,7 @@ describe EpdqTransactionsController do
     describe "with registration count" do
       context "given valid values" do
         before do
-          post :confirm, :slug => "pay-to-register-birth-abroad", :transaction => {
+          post :confirm, :slug => "pay-register-birth-abroad", :transaction => {
             :registration_count => "5",
             :document_count => "5",
             :postage => "yes"
@@ -137,13 +137,13 @@ describe EpdqTransactionsController do
 
         it "assigns the transaction details" do
           assigns(:transaction).title.should == "Payment to register a birth abroad"
-          assigns(:transaction).slug.should == "pay-to-register-birth-abroad"
+          assigns(:transaction).slug.should == "pay-register-birth-abroad"
         end
 
         it "assigns an EPDQ request with the correct amount" do
           assigns(:epdq_request).parameters[:orderid].should_not be_blank
           assigns(:epdq_request).parameters[:amount].should == 86000
-          assigns(:epdq_request).parameters[:accepturl].should == "http://www.dev.gov.uk/pay-to-register-birth-abroad/done"
+          assigns(:epdq_request).parameters[:accepturl].should == "http://www.dev.gov.uk/pay-register-birth-abroad/done"
         end
       end
     end

@@ -19,7 +19,7 @@ pay-register-death-abroad:
   registration: true
   registration_cost: 105
   registration_type: death
-pay-to-register-birth-abroad:
+pay-register-birth-abroad:
   title: Payment to register a birth abroad
   document_cost: 65
   postage_cost: 10
