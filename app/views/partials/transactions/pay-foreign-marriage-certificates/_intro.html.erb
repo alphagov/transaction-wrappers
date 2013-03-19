@@ -2,7 +2,7 @@
 
 <%= render "partials/questions/document_type", :question_text => "Which type of certificate do you need?" %>
 
-<%= render "partials/questions/certificate_count", :question_text => "How many do you need? Each certificate costs &pound;65." %>
+<%= render "partials/questions/document_count", :question_text => "How many do you need? Each certificate costs &pound;#{@transaction.document_count}65." %>
 
-<%= render "partials/questions/postage_fee_yes_no", :question_text => "Do you want to pay the &pound;10 postage fee to have your documents returned?" %>
+<%= render "partials/questions/postage_fee_yes_no", :question_text => "Do you want to pay the &pound;#{@transaction.postage_cost} postage fee to have your documents returned?" %>
 
