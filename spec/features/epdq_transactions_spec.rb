@@ -5,10 +5,10 @@ feature "epdq transactions" do
 
   describe "paying for a certificate for marriage" do
     it "renders the content and form" do
-      visit "/pay-for-certificates-for-marriage"
+      visit "/pay-foreign-marriage-certificates"
 
       within(:css, "header.page-header") do
-        page.should have_content("Pay for certificates for marriage")
+        page.should have_content("Payment for certificates to get married abroad")
       end
 
       within(:css, "form") do
@@ -32,7 +32,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-for-certificates-for-marriage"
+        visit "/pay-foreign-marriage-certificates"
 
         within(:css, "form") do
           choose "Certificate of custom law"
@@ -58,7 +58,7 @@ feature "epdq transactions" do
           page.should have_selector("input[name='AMOUNT'][value='20500']")
           page.should have_selector("input[name='CURRENCY'][value='GBP']")
           page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
-          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-for-certificates-for-marriage/done']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-foreign-marriage-certificates/done']")
 
           page.should have_button("Pay")
         end
@@ -66,7 +66,7 @@ feature "epdq transactions" do
     end
 
     it "displays an error and renders the form given incorrect data" do
-      visit "/pay-for-certificates-for-marriage"
+      visit "/pay-foreign-marriage-certificates"
 
       within(:css, "form") do
         select "3", :from => "How many documents do you require?"
@@ -82,12 +82,12 @@ feature "epdq transactions" do
     describe "visiting the done page" do
       context "given valid payment details" do
         before do
-          visit "/pay-for-certificates-for-marriage/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR+MICKEY+MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003"
+          visit "/pay-foreign-marriage-certificates/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR+MICKEY+MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003"
         end
 
         it "should display the done page content" do
           within(:css, "header.page-header") do
-            page.should have_content("Pay for certificates for marriage")
+            page.should have_content("Payment for certificates to get married abroad")
           end
 
           page.should have_content("Your payment to the Foreign & Commonwealth Office is complete.")
@@ -100,12 +100,12 @@ feature "epdq transactions" do
 
       context "invalid payment details" do
         before do
-          visit "/pay-for-certificates-for-marriage/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MISS+MINNIE+MOUSE&SHASIGN=yarrrrr"
+          visit "/pay-foreign-marriage-certificates/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MISS+MINNIE+MOUSE&SHASIGN=yarrrrr"
         end
 
         it "should display the error page content" do
           within(:css, "header.page-header") do
-            page.should have_content("Pay for certificates for marriage")
+            page.should have_content("Payment for certificates to get married abroad")
           end
 
           page.should have_content("There was a problem making your payment to the Foreign & Commonwealth Office.")
@@ -119,7 +119,7 @@ feature "epdq transactions" do
       visit "/pay-to-register-birth-abroad"
 
       within(:css, "header.page-header") do
-        page.should have_content("Pay to register a birth abroad in the UK")
+        page.should have_content("Payment to register a birth abroad")
       end
 
       within(:css, "form") do
@@ -176,10 +176,10 @@ feature "epdq transactions" do
 
   describe "paying to register a death abroad" do
     it "renders the content and form" do
-      visit "/pay-to-register-death-abroad"
+      visit "/pay-register-death-abroad"
 
       within(:css, "header.page-header") do
-        page.should have_content("Pay to register a death abroad in the UK")
+        page.should have_content("Payment to register a death abroad")
       end
 
       within(:css, "form") do
@@ -200,7 +200,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-to-register-death-abroad"
+        visit "/pay-register-death-abroad"
 
         within(:css, "form") do
           select "5", :from => "How many death registrations do you need to register?"
@@ -226,7 +226,7 @@ feature "epdq transactions" do
           page.should have_selector("input[name='AMOUNT'][value='60000']")
           page.should have_selector("input[name='CURRENCY'][value='GBP']")
           page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
-          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-to-register-death-abroad/done']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-register-death-abroad/done']")
 
           page.should have_button("Pay")
         end
@@ -236,10 +236,10 @@ feature "epdq transactions" do
 
   describe "paying to deposit marriage and civil partnership documents" do
     it "renders the content and form" do
-      visit "/pay-to-deposit-marriage-documents"
+      visit "/deposit-foreign-marriage"
 
       within(:css, "header.page-header") do
-        page.should have_content("Pay to deposit marriage and civil partnership documents in the UK")
+        page.should have_content("Deposit foreign marriage or civil partnership certificates")
       end
 
       within(:css, "form") do
@@ -257,7 +257,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-to-deposit-marriage-documents"
+        visit "/deposit-foreign-marriage"
 
         within(:css, "form") do
           select "1", :from => "How many documents do you require?"
@@ -282,7 +282,7 @@ feature "epdq transactions" do
           page.should have_selector("input[name='AMOUNT'][value='4500']")
           page.should have_selector("input[name='CURRENCY'][value='GBP']")
           page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
-          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-to-deposit-marriage-documents/done']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/deposit-foreign-marriage/done']")
 
           page.should have_button("Pay")
         end
@@ -292,10 +292,10 @@ feature "epdq transactions" do
 
   describe "paying to get a document legalised by post" do
     it "renders the content and form" do
-      visit "/pay-to-get-documents-legalised-by-post"
+      visit "/pay-legalisation-post"
 
       within(:css, "header.page-header") do
-        page.should have_content("Pay to get documents legalised by post")
+        page.should have_content("Pay to legalise documents by post")
       end
 
       within(:css, "form") do
@@ -317,7 +317,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-to-get-documents-legalised-by-post"
+        visit "/pay-legalisation-post"
 
         within(:css, "form") do
           select "1", :from => "How many documents do you require?"
@@ -342,7 +342,7 @@ feature "epdq transactions" do
           page.should have_selector("input[name='AMOUNT'][value='5500']")
           page.should have_selector("input[name='CURRENCY'][value='GBP']")
           page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
-          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-to-get-documents-legalised-by-post/done']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-legalisation-post/done']")
 
           page.should have_button("Pay")
         end
@@ -350,7 +350,7 @@ feature "epdq transactions" do
     end
 
     it "displays an error and renders the form given incorrect data" do
-      visit "/pay-to-get-documents-legalised-by-post"
+      visit "/pay-legalisation-post"
 
       within(:css, "form") do
         select "3", :from => "How many documents do you require?"
@@ -365,10 +365,10 @@ feature "epdq transactions" do
 
   describe "paying to get a document legalised using the drop-off service" do
     it "renders the content and form" do
-      visit "/pay-for-documents-legalised-drop-off"
+      visit "/pay-legalisation-drop-off"
 
       within(:css, "header.page-header") do
-        page.should have_content("Pay to get documents legalised using the drop-off service")
+        page.should have_content("Pay to legalise documents using the drop-off service")
       end
 
       within(:css, "form") do
@@ -387,7 +387,7 @@ feature "epdq transactions" do
 
     context "given correct data" do
       before do
-        visit "/pay-for-documents-legalised-drop-off"
+        visit "/pay-legalisation-drop-off"
 
         within(:css, "form") do
           select "5", :from => "How many documents do you require?"
@@ -411,7 +411,7 @@ feature "epdq transactions" do
           page.should have_selector("input[name='AMOUNT'][value='37500']")
           page.should have_selector("input[name='CURRENCY'][value='GBP']")
           page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
-          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-for-documents-legalised-drop-off/done']")
+          page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-legalisation-drop-off/done']")
 
           page.should have_button("Pay")
         end

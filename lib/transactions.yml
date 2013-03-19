@@ -1,5 +1,5 @@
-pay-for-certificates-for-marriage:
-  title: Pay for certificates for marriage
+pay-foreign-marriage-certificates:
+  title: Payment for certificates to get married abroad
   document_cost: 65
   postage_cost: 10
   registration: false
@@ -7,27 +7,27 @@ pay-for-certificates-for-marriage:
     certificate-of-no-impediment: Certificate of no impediment
     nulla-osta: Nulla osta
     certificate-of-custom-law: Certificate of custom law
-pay-to-deposit-marriage-documents:
-  title: Pay to deposit marriage and civil partnership documents in the UK
+deposit-foreign-marriage:
+  title: Deposit foreign marriage or civil partnership certificates
   document_cost: 35
   postage_cost: 10
   registration: false
-pay-to-register-death-abroad:
-  title: Pay to register a death abroad in the UK
+pay-register-death-abroad:
+  title: Payment to register a death abroad
   document_cost: 65
   postage_cost: 10
   registration: true
   registration_cost: 105
   registration_type: death
 pay-to-register-birth-abroad:
-  title: Pay to register a birth abroad in the UK
+  title: Payment to register a birth abroad
   document_cost: 65
   postage_cost: 10
   registration: true
   registration_cost: 105
   registration_type: birth
-pay-to-get-documents-legalised-by-post:
-  title: Pay to get documents legalised by post
+pay-legalisation-post:
+  title: Pay to legalise documents by post
   document_cost: 30
   postage_options:
     courier-or-prepaid:
@@ -45,7 +45,7 @@ pay-to-get-documents-legalised-by-post:
     rest-of-world:
       label: "Rest of the World"
       cost: 25
-pay-for-documents-legalised-drop-off:
-  title: Pay to get documents legalised using the drop-off service
+pay-legalisation-drop-off:
+  title: Pay to legalise documents using the drop-off service
   document_cost: 75
   postage_cost: false
