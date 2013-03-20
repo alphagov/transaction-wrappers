@@ -7,11 +7,13 @@ pay-foreign-marriage-certificates:
     certificate-of-no-impediment: Certificate of no impediment
     nulla-osta: Nulla osta
     certificate-of-custom-law: Certificate of custom law
+  account: birth-death-marriage
 deposit-foreign-marriage:
   title: Deposit foreign marriage or civil partnership certificates
   document_cost: 35
   postage_cost: 10
   registration: false
+  account: birth-death-marriage
 pay-register-death-abroad:
   title: Payment to register a death abroad
   document_cost: 65
@@ -19,6 +21,7 @@ pay-register-death-abroad:
   registration: true
   registration_cost: 105
   registration_type: death
+  account: birth-death-marriage
 pay-register-birth-abroad:
   title: Payment to register a birth abroad
   document_cost: 65
@@ -26,6 +29,7 @@ pay-register-birth-abroad:
   registration: true
   registration_cost: 105
   registration_type: birth
+  account: birth-death-marriage
 pay-legalisation-post:
   title: Pay to legalise documents by post
   document_cost: 30
@@ -45,7 +49,9 @@ pay-legalisation-post:
     rest-of-world:
       label: "Rest of the World"
       cost: 25
+  account: legalisation-post
 pay-legalisation-drop-off:
   title: Pay to legalise documents using the drop-off service
   document_cost: 75
   postage_cost: false
+  account: legalisation-drop-off

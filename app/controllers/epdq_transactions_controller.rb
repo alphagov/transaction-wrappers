@@ -25,7 +25,7 @@ class EpdqTransactionsController < ApplicationController
   end
 
   def done
-    @epdq_response = EPDQ::Response.new(request.query_string)
+    @epdq_response = EPDQ::Response.new(request.query_string, @transaction.account)
 
     if @epdq_response.valid_shasign?
       render "done"
@@ -41,6 +41,7 @@ private
 
   def build_epdq_request(transaction, total_cost_in_gbp)
     @epdq_request = EPDQ::Request.new(
+      :account => transaction.account,
       :orderid => SecureRandom.hex(15),
       :amount => (total_cost_in_gbp * 100).round,
       :currency => "GBP",

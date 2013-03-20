@@ -58,6 +58,12 @@ describe EpdqTransactionsController do
       response.should be_not_found
     end
 
+    it "builds an epdq request with the correct account" do
+      EPDQ::Request.should_receive(:new).with(hash_including(:account => "legalisation-drop-off"))
+
+      post :confirm, :slug => "pay-legalisation-drop-off", :transaction => { :document_count => "5" }
+    end
+
     describe "with multiple document types" do
       context "given valid values" do
         before do
@@ -194,6 +200,13 @@ describe EpdqTransactionsController do
     it "returns 404 status if slug is empty" do
       post :confirm, :slug => ""
       response.should be_not_found
+    end
+
+    it "should build an EPDQ response for the correct account" do
+      response_stub = stub(:valid_shasign? => true)
+      EPDQ::Response.should_receive(:new).with(anything(), "birth-death-marriage").and_return(response_stub)
+
+      get :done, :slug => "deposit-foreign-marriage"
     end
 
     describe "for a standard transaction" do
