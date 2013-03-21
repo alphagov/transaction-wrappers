@@ -53,7 +53,8 @@ class TransactionCalculator
       :postage_option_label => postage_method.nil? ? "" : postage_method['label'],
       :document_count => document_count,
       :postage => postage,
-      :document_type => document_type
+      :document_type => document_type,
+      :registration_count => registration_count
     )
   end
 
