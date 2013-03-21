@@ -48,7 +48,12 @@ class TransactionCalculator
     item_list_order = [:registration, :document, :postage]
     return OpenStruct.new(
       :total_cost => total_cost,
-      :item_list => item_list_order.map {|key| item_list[key] }.join("")
+      :item_list => item_list_order.map {|key| item_list[key] }.join(""),
+      :postage_option => postage_option,
+      :postage_option_label => postage_method.nil? ? "" : postage_method['label'],
+      :document_count => document_count,
+      :postage => postage,
+      :document_type => document_type
     )
   end
 
