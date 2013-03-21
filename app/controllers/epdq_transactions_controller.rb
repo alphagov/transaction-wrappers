@@ -25,7 +25,7 @@ class EpdqTransactionsController < ApplicationController
   end
 
   def done
-    @epdq_response = EPDQ::Response.new(request.query_string, @transaction.account)
+    @epdq_response = EPDQ::Response.new(request.query_string, @transaction.account, Transaction::PARAMPLUS_KEYS)
 
     if @epdq_response.valid_shasign?
       render "done"
@@ -46,8 +46,19 @@ private
       :amount => (total_cost_in_gbp * 100).round,
       :currency => "GBP",
       :language => "en_GB",
-      :accepturl => root_url + "#{transaction.slug}/done"
+      :accepturl => root_url + "#{transaction.slug}/done",
+      :paramplus => paramplus_value
     )
+  end
+
+  def paramplus_value 
+    [].tap do |ary|
+      Transaction::PARAMPLUS_KEYS.each do |key|
+        if params[:transaction].has_key?(key)
+          ary << "#{key}=#{params[:transaction][key]}"
+        end
+      end
+    end.join('&')
   end
 
 end

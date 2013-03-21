@@ -65,6 +65,7 @@ feature "epdq transactions" do
           page.should have_selector("input[name='CURRENCY'][value='GBP']")
           page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
           page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-foreign-marriage-certificates/done']")
+          page.should have_selector("input[name='PARAMPLUS'][value='document_count=3&postage=yes']")
 
           page.should have_button("Pay")
         end
@@ -88,7 +89,7 @@ feature "epdq transactions" do
     describe "visiting the done page" do
       context "given valid payment details" do
         before do
-          visit "/pay-foreign-marriage-certificates/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR+MICKEY+MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003"
+          visit "/pay-foreign-marriage-certificates/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR+MICKEY+MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003&document_count=5&postage=yes"
         end
 
         it "should display the done page content" do
@@ -101,6 +102,20 @@ feature "epdq transactions" do
 
         it "should display the order number" do
           page.should have_content("12345678")
+        end
+
+        it "should display the number of documents ordered" do
+          page.should have_content("You have paid for 5 certificates plus postage.")
+        end
+      end
+
+      context "given valid payment details and additional parameters" do
+        before do
+          visit "/pay-foreign-marriage-certificates/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR+MICKEY+MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003&registration_count=1&document_count=4"
+        end
+
+        it "should display the number of documents ordered" do
+          page.should have_content("You have paid for 1 registration and 4 certificates.")
         end
       end
 

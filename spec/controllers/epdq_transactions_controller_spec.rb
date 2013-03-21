@@ -204,7 +204,8 @@ describe EpdqTransactionsController do
 
     it "should build an EPDQ response for the correct account" do
       response_stub = stub(:valid_shasign? => true)
-      EPDQ::Response.should_receive(:new).with(anything(), "birth-death-marriage").and_return(response_stub)
+      EPDQ::Response.should_receive(:new).with(anything(), "birth-death-marriage", Transaction::PARAMPLUS_KEYS)
+        .and_return(response_stub)
 
       get :done, :slug => "deposit-foreign-marriage"
     end
@@ -225,7 +226,9 @@ describe EpdqTransactionsController do
             "PAYID" => 12345678,
             "NCERROR" => 0,
             "BRAND" => "VISA",
-            "SHASIGN" => "6ACE8B0C8E0B427137F6D7FF86272AA570255003"
+            "SHASIGN" => "6ACE8B0C8E0B427137F6D7FF86272AA570255003",
+            "document_count" => "3",
+            "postage" => "yes"
         end
 
         it "is successful" do
@@ -244,6 +247,9 @@ describe EpdqTransactionsController do
         it "assigns the epdq response" do
           assigns(:epdq_response).parameters[:payid].should == "12345678"
           assigns(:epdq_response).parameters[:orderid].should == "test"
+
+          assigns(:epdq_response).parameters[:document_count].should == "3"
+          assigns(:epdq_response).parameters[:postage].should == "yes"
         end
       end
 
@@ -273,6 +279,7 @@ describe EpdqTransactionsController do
           @controller.should render_template("error")
         end
       end
+
     end
   end
 
