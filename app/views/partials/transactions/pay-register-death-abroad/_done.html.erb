@@ -1,2 +1,7 @@
 <p>Your payment to the Foreign &amp; Commonwealth Office is complete.</p>
-<p>Your payment ID is <strong><%= @epdq_response.parameters[:payid] %></strong>.</p>
+
+<p>You have paid for <%= pluralize registration_count, "registration" %> and <%= pluralize document_count, "certificate" %><% if postage? %>, plus postage<% end %>.</p>
+
+<p>Your payment reference is <%= @epdq_response.parameters[:payid] %>.</p>
+
+<p>Print this page and send it, along with your <%= document_count == 1 ? "certificate" : "certificates" %>, application form and supporting documents listed on the form, to the Foreign &amp; Commonwealth Office (FCO). The address is on the form.

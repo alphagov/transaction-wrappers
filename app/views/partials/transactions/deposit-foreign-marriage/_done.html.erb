@@ -1,3 +1,6 @@
-<p>Your payment reference is <%= @epdq_response.parameters[:payid] %></p>
+<p>You have paid to deposit <%= pluralize document_count, "certificate" %><% if postage? %> plus postage <% end %>.</p>
 
-[Print this page] and send it, along with your [certificate / certificates], application form and supporting documents listed on the form, to the Foreign &amp; Commonwealth Office (FCO). The address is on the form.
+<p>Your payment reference is <%= @epdq_response.parameters[:payid] %>.</p>
+
+
+<p>Print this page and send it, along with your <%= pluralize document_count, "certificate" %>, application form and supporting documents listed on the form, to the Foreign &amp; Commonwealth Office (FCO). The address is on the form.</p>

@@ -21,10 +21,10 @@ class TransactionCalculator
       raise Transaction::InvalidPostageOption unless postage_method
 
       postage_total = postage_method['cost']
-      item_list[:postage] = ", plus #{postage_method['label']} postage,"
+      item_list[:postage] = " plus #{postage_method['label']} postage"
     elsif postage
       postage_total = @transaction.postage_cost
-      item_list[:postage] = ", plus postage,"
+      item_list[:postage] = " plus postage"
     end
     total_cost = document_total + (postage_total || 0)
 
@@ -42,13 +42,21 @@ class TransactionCalculator
         document_type_label = @transaction.document_types[document_type]
       end
       raise Transaction::InvalidDocumentType unless document_type_label
+    elsif @transaction.document_type.present?
+      document_type_label = @transaction.document_type
     end
     item_list[:document] = "#{document_count} " + pluralize_document_type_label(document_count, document_type_label || "document")
 
     item_list_order = [:registration, :document, :postage]
     return OpenStruct.new(
       :total_cost => total_cost,
-      :item_list => item_list_order.map {|key| item_list[key] }.join("")
+      :item_list => item_list_order.map {|key| item_list[key] }.join(""),
+      :postage_option => postage_option,
+      :postage_option_label => postage_method.nil? ? "" : postage_method['label'],
+      :document_count => document_count,
+      :postage => postage,
+      :document_type => document_type,
+      :registration_count => registration_count
     )
   end
 
@@ -59,7 +67,7 @@ class TransactionCalculator
 
     case label
     when /\Acertificate/i then label.sub(/\A([cC])ertificate/i, '\1ertificates')
-    when "Nulla osta" then "Nulla ostas" # pluralize thinks this is already plural
+    when "Nulla Osta" then "Nulla Ostas" # pluralize thinks this is already plural
     else
       label.pluralize(quantity)
     end
