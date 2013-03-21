@@ -21,10 +21,10 @@ class TransactionCalculator
       raise Transaction::InvalidPostageOption unless postage_method
 
       postage_total = postage_method['cost']
-      item_list[:postage] = ", plus #{postage_method['label']} postage,"
+      item_list[:postage] = " plus #{postage_method['label']} postage"
     elsif postage
       postage_total = @transaction.postage_cost
-      item_list[:postage] = ", plus postage,"
+      item_list[:postage] = " plus postage"
     end
     total_cost = document_total + (postage_total || 0)
 
@@ -65,7 +65,7 @@ class TransactionCalculator
 
     case label
     when /\Acertificate/i then label.sub(/\A([cC])ertificate/i, '\1ertificates')
-    when "Nulla osta" then "Nulla ostas" # pluralize thinks this is already plural
+    when "Nulla osta" then "Nulla Ostas" # pluralize thinks this is already plural
     else
       label.pluralize(quantity)
     end

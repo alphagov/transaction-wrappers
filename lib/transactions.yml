@@ -4,9 +4,9 @@ pay-foreign-marriage-certificates:
   postage_cost: 10
   registration: false
   document_types:
-    certificate-of-no-impediment: Certificate of no impediment
-    nulla-osta: Nulla osta
-    certificate-of-custom-law: Certificate of custom law
+    certificate-of-no-impediment: certificate of no impediment
+    nulla-osta: Nulla Osta
+    certificate-of-custom-law: certificate of custom law
   account: birth-death-marriage
 deposit-foreign-marriage:
   title: Deposit foreign marriage or civil partnership certificates
