@@ -5,6 +5,8 @@ class Transaction < OpenStruct
   class InvalidDocumentType < StandardError; end
   class InvalidPostageOption < StandardError; end
 
+  PARAMPLUS_KEYS = ['document_count', 'postage', 'postage_option', 'registration_count']
+  
   def calculate_total(values)
     calculator = TransactionCalculator.new(self)
     calculator.calculate(values)
