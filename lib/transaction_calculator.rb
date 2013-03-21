@@ -65,7 +65,7 @@ class TransactionCalculator
 
     case label
     when /\Acertificate/i then label.sub(/\A([cC])ertificate/i, '\1ertificates')
-    when "Nulla osta" then "Nulla Ostas" # pluralize thinks this is already plural
+    when "Nulla Osta" then "Nulla Ostas" # pluralize thinks this is already plural
     else
       label.pluralize(quantity)
     end

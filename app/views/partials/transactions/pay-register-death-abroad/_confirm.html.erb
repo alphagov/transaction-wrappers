@@ -1,1 +1,1 @@
-<p>The cost for <%= pluralize @calculation.registration_count, "registration" %> and <%= pluralize @calculation.document_count, "certificate" %><% if @calculation.postage? %> plus postage<% end %> is &pound;<%= format_money @calculation.total_cost %>.</p>
+<p>The cost for <%= pluralize @calculation.registration_count, "registration" %> and <%= pluralize @calculation.document_count, "certificate" %><% if @calculation.postage %> plus postage<% end %> is &pound;<%= format_money @calculation.total_cost %>.</p>
