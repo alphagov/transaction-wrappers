@@ -50,7 +50,7 @@ feature "epdq transactions" do
       end
 
       it "calculates a total" do
-        page.should have_content("The cost of 3 Certificates of custom law plus postage is £205")
+        page.should have_content("The cost of 3 certificates of custom law plus postage is £205")
       end
 
       it "generates an EPDQ form" do

@@ -182,7 +182,7 @@ describe EpdqTransactionsController do
 
         it "should calculate the correct total cost" do
           assigns(:calculation).total_cost.should == 105
-          assigns(:calculation).item_list.should == "3 documents"
+          assigns(:calculation).item_list.should == "3 certificates"
         end
 
         it "is successful" do
