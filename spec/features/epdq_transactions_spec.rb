@@ -65,7 +65,8 @@ feature "epdq transactions" do
           page.should have_selector("input[name='CURRENCY'][value='GBP']")
           page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
           page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-foreign-marriage-certificates/done']")
-
+          page.should have_selector("input[name='PARAMPLUS'][value='document_count=3&postage=yes']")
+puts page
           page.should have_button("Pay")
         end
       end
