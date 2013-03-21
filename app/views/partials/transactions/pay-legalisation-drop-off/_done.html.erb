@@ -1,6 +1,6 @@
 <h2>Payment confirmation</h2>
 
-<p>Your payment of &pound;<%= @epdq_response.parameters[:amount] %> has been received by the Legalisation Office.</p>
+<p>Your payment of &pound;<%= format_money @epdq_response.parameters[:amount] %> has been received by the Legalisation Office.</p>
 
 <p>Your payment number is <%= @epdq_response.parameters[:payid] %>.</p>
 
