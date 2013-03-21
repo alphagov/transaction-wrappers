@@ -76,7 +76,7 @@ describe EpdqTransactionsController do
 
         it "should calculate the correct total cost" do
           assigns(:calculation).total_cost.should == 335
-          assigns(:calculation).item_list.should == "5 Nulla ostas, plus postage,"
+          assigns(:calculation).item_list.should == "5 Nulla Ostas plus postage"
         end
 
         it "is successful" do
@@ -147,7 +147,7 @@ describe EpdqTransactionsController do
 
         it "should calculate the correct total cost" do
           assigns(:calculation).total_cost.should == 860
-          assigns(:calculation).item_list.should == "5 birth registrations and 5 birth certificates, plus postage,"
+          assigns(:calculation).item_list.should == "5 birth registrations and 5 birth certificates plus postage"
         end
 
         it "is successful" do
@@ -182,7 +182,7 @@ describe EpdqTransactionsController do
 
         it "should calculate the correct total cost" do
           assigns(:calculation).total_cost.should == 105
-          assigns(:calculation).item_list.should == "3 documents"
+          assigns(:calculation).item_list.should == "3 certificates"
         end
 
         it "is successful" do

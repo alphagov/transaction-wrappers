@@ -32,7 +32,7 @@ describe TransactionCalculator do
     end
 
     it "builds an item list with postage" do
-      @calculator.calculate(:document_count => 5, :postage => "yes").item_list.should == "5 documents, plus postage,"
+      @calculator.calculate(:document_count => 5, :postage => "yes").item_list.should == "5 documents plus postage"
     end
   end
 
@@ -62,7 +62,7 @@ describe TransactionCalculator do
     end
 
     it "builds an item list for multiple documents, plus postage" do
-      @calculator.calculate(:document_count => 2, :document_type => "tea-assurance-document", :postage => "yes").item_list.should == "2 Tea assurance documents, plus postage,"
+      @calculator.calculate(:document_count => 2, :document_type => "tea-assurance-document", :postage => "yes").item_list.should == "2 Tea assurance documents plus postage"
     end
 
     it "builds an item list for a single certificate" do
@@ -110,7 +110,7 @@ describe TransactionCalculator do
     end
 
     it "builds an item list for multiple registrations and documents, with postage" do
-      @calculator.calculate(:registration_count => 1, :document_count => 4, :postage => "yes").item_list.should == "1 tea registration and 4 tea certificates, plus postage,"
+      @calculator.calculate(:registration_count => 1, :document_count => 4, :postage => "yes").item_list.should == "1 tea registration and 4 tea certificates plus postage"
     end
   end
 
@@ -144,11 +144,11 @@ describe TransactionCalculator do
     end
 
     it "builds an item list including the postage type" do
-      @calculator.calculate(:postage_option => "horse-and-cart").item_list.should == "0 documents, plus Horse and cart postage,"
+      @calculator.calculate(:postage_option => "horse-and-cart").item_list.should == "0 documents plus Horse and cart postage"
     end
 
     it "builds an item list of multiple documents including the postage type" do
-      @calculator.calculate(:postage_option => "flying-machine", :document_count => 3).item_list.should == "3 documents, plus Flying machine postage,"
+      @calculator.calculate(:postage_option => "flying-machine", :document_count => 3).item_list.should == "3 documents plus Flying machine postage"
     end
 
     it "raises an error if no postage option set" do

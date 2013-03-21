@@ -1,2 +1,44 @@
-<p>Your payment to the Foreign &amp; Commonwealth Office is complete.</p>
-<p>Your payment ID is <strong><%= @epdq_response.parameters[:payid] %></strong>.</p>
+<h2>Payment confirmation</h2>
+
+<p>Your payment of &pound;<%= @epdq_response.parameters[:amount] %> has been received by the Legalisation Office.</p>
+
+<p>Your payment number is <%= @epdq_response.parameters[:payid] %>.</p>
+
+
+<h2>What to do next</h2>
+
+<p>Send the following items to the Legalisation Office:</p>
+
+<ul>
+  <li>the documents you want legalised</li>
+  <li>a signed <a rel="external" href="http://uk.sitestat.com/fcoweb/fcogov/s?fco.en.about-us.what-we-do.services-we-deliver.legal-services.Legalisation.p.pdf.LO-app-form-Word-2012&amp;ns_type=pdf&amp;ns_url=http://www.fco.gov.uk/resources/en/word/5029385/8400026/LO-app-form-Word-2012">Legalisation application form (DOC, 36KB)</a>(with your payment number added)</li>
+  <li>a printout of this payment confirmation page</li>
+  <% if @epdq_response.parameters[:postage_option] == "courier-or-prepaid" %>
+    <li>an A4-sized prepaid envelope so your documents can be returned</li>
+  <% end %>
+</ul>
+
+<div class="address">
+  <p>Legalisation Office</p>
+  <p>Foreign &amp; Commonwealth Office</p>
+  <p>PO Box 6255</p>
+  <p>Milton Keynes</p>
+  <p>MK10 1XX</p>
+</div>
+
+<div class="application-notice help-notice"><p>You must post your application and documents - you can't go to the legalisation office in person.</p></div>
+
+
+<h2>If you’re abroad or using a courier</h2>
+
+<p>Send your registration to the following address if you’re abroad or using a courier service in the UK:</p>
+
+<div class="address">
+  <p>The Legalisation Office</p>
+  <p>Foreign &amp; Commonwealth Office</p>
+  <p>Hanslope Park</p>
+  <p>Hanslope</p>
+  <p>Milton Keynes</p>
+  <p>MK19 7BH</p>
+</div>
+

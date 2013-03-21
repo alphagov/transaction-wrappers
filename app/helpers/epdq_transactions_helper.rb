@@ -1,5 +1,5 @@
 module EpdqTransactionsHelper
-  
+
   def epdq_params
     @epdq_response.parameters
   end
@@ -30,6 +30,7 @@ module EpdqTransactionsHelper
   end
 
   def registrations?
-    registration_count > 0 
+    registration_count > 0
   end
+
 end

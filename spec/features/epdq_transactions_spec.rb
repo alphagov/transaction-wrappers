@@ -23,7 +23,7 @@ feature "epdq transactions" do
       within(:css, "form") do
         page.should have_content("Pay for documents you need from the Foreign & Commonwealth Office (FCO) to prove you’re allowed to get married abroad.")
         page.should have_unchecked_field("Certificate of no impediment")
-        page.should have_unchecked_field("Nulla osta")
+        page.should have_unchecked_field("Nulla Osta")
         page.should have_unchecked_field("Certificate of custom law")
 
         page.should have_content("Each certificate costs £65.")
@@ -50,7 +50,7 @@ feature "epdq transactions" do
       end
 
       it "calculates a total" do
-        page.should have_content("The cost for 3 Certificates of custom law, plus postage, is £205")
+        page.should have_content("The cost of 3 certificates of custom law plus postage is £205")
       end
 
       it "generates an EPDQ form" do
@@ -172,7 +172,7 @@ feature "epdq transactions" do
       end
 
       it "calculates a total" do
-        page.should have_content("The cost for 2 birth registrations and 3 birth certificates, plus postage, is £415")
+        page.should have_content("The cost for 2 registrations and 3 certificates is £415")
       end
 
       it "generates an EPDQ form" do
@@ -232,7 +232,7 @@ feature "epdq transactions" do
       end
 
       it "calculates a total" do
-        page.should have_content("The cost for 5 death registrations and 1 death certificate, plus postage, is £600")
+        page.should have_content("The cost for 5 registrations and 1 certificate plus postage is £600")
       end
 
       it "generates an EPDQ form" do
@@ -288,7 +288,7 @@ feature "epdq transactions" do
       end
 
       it "calculates a total" do
-        page.should have_content("The cost for 1 document, plus postage, is £45")
+        page.should have_content("The cost to deposit 1 certificate plus postage is £45")
       end
 
       it "generates an EPDQ form" do
@@ -348,7 +348,7 @@ feature "epdq transactions" do
       end
 
       it "calculates a total" do
-        page.should have_content("The cost for 1 document, plus Rest of the World postage, is £55")
+        page.should have_content("It costs £55 for 1 document plus Rest of the World postage")
       end
 
       it "generates an EPDQ form" do
@@ -417,7 +417,7 @@ feature "epdq transactions" do
       end
 
       it "calculates a total" do
-        page.should have_content("The cost for 5 documents is £375.")
+        page.should have_content("It costs £375 for 5 documents")
       end
 
       it "generates an EPDQ form" do

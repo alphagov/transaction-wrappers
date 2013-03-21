@@ -1,8 +1,6 @@
-<p>Your payment to the Foreign &amp; Commonwealth Office is complete.</p>
-<p>Your payment ID is <strong><%= @epdq_response.parameters[:payid] %></strong>.</p>
 <h2>Payment confirmation</h2>
 
-<p>Your payment of &pound;<%= @transaction.total_cost %> has been received by the Legalisation Office.</p>
+<p>Your payment of &pound;<%= format_money @epdq_response.parameters[:amount] %> has been received by the Legalisation Office.</p>
 
 <p>Your payment number is <%= @epdq_response.parameters[:payid] %>.</p>
 
@@ -23,6 +21,6 @@
 <h2>Opening times</h2>
 <p>The opening hours of the drop-off office are:</p>
 <ul>
-  <li>- 9am to midday (the last drop-off time for pre-lunch pickup is 10:30am)</li>
-  <li>- 1pm to 5pm (the last drop-off time for same day collection is 3:30pm)</li>
+  <li>9am to midday (the last drop-off time for pre-lunch pickup is 10:30am)</li>
+  <li>1pm to 5pm (the last drop-off time for same day collection is 3:30pm)</li>
 </ul>
