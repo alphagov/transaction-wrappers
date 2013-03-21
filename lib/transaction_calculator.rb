@@ -42,6 +42,8 @@ class TransactionCalculator
         document_type_label = @transaction.document_types[document_type]
       end
       raise Transaction::InvalidDocumentType unless document_type_label
+    elsif @transaction.document_type.present?
+      document_type_label = @transaction.document_type
     end
     item_list[:document] = "#{document_count} " + pluralize_document_type_label(document_count, document_type_label || "document")
 

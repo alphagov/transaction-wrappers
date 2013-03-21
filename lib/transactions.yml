@@ -14,6 +14,7 @@ deposit-foreign-marriage:
   postage_cost: 10
   registration: false
   account: birth-death-marriage
+  document_type: certificate
 pay-register-death-abroad:
   title: Payment to register a death abroad
   document_cost: 65
