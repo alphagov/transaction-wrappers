@@ -325,11 +325,11 @@ feature "epdq transactions" do
         page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
 
         page.should have_content("How would you like your documents sent back to you?")
-        page.should have_unchecked_field("Courier or prepaid envelope - £0")
-        page.should have_unchecked_field("Delivery to the United Kingdom or British Forces Post Office - £6")
-        page.should have_unchecked_field("Delivery to the United Kingdom or British Forces Post Office, with insurance - £12")
-        page.should have_unchecked_field("Europe (excluding Russia, Turkey, Bosnia, Croatia, Albania, Belarus, Macedonia, Moldova, Montenegro, Ukraine) - £14.50")
-        page.should have_unchecked_field("Rest of the World - £25")
+        page.should have_unchecked_field("Prepaid envelope that you provide (UK only) - £0")
+        page.should have_unchecked_field("Tracked courier service to the UK or British Forces Post Office - £6")
+        page.should have_unchecked_field("Tracked courier service to the UK or British Forces Post Office, with insurance - £12")
+        page.should have_unchecked_field("Tracked courier service to Europe (excluding Russia, Turkey, Bosnia, Croatia, Albania, Belarus, Macedonia, Moldova, Montenegro, Ukraine) - £14.50")
+        page.should have_unchecked_field("Tracked courier service to the rest of the world - £25")
 
         page.should have_button("Calculate total")
       end
@@ -341,14 +341,14 @@ feature "epdq transactions" do
 
         within(:css, "form") do
           select "1", :from => "transaction_document_count"
-          choose "Rest of the World - £25"
+          choose "Tracked courier service to the rest of the world - £25"
         end
 
         click_on "Calculate total"
       end
 
       it "calculates a total" do
-        page.should have_content("It costs £55 for 1 document plus Rest of the World postage")
+        page.should have_content("It costs £55 for 1 document plus Tracked courier service to the rest of the world postage")
       end
 
       it "generates an EPDQ form" do
