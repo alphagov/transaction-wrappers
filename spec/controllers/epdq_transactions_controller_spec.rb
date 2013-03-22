@@ -36,7 +36,7 @@ describe EpdqTransactionsController do
       end
 
       it "sets the correct expiry headers" do
-        assert_equal "max-age=1800, public",  response.headers["Cache-Control"]
+        response.headers["Cache-Control"].should == "max-age=1800, public"
       end
 
       it "is successful" do
