@@ -17,4 +17,10 @@ class ApplicationController < ActionController::Base
       "#{Plek.current.find("www")}/"
     end
   end
+
+  def set_expiry(duration = 30.minutes)
+    unless Rails.env.development?
+      expires_in(duration, :public => true)
+    end
+  end
 end
