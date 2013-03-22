@@ -36,10 +36,10 @@ pay-legalisation-post:
   document_cost: 30
   postage_options:
     courier-or-prepaid:
-      label: Prepaid envelope that you provide
+      label: Prepaid envelope that you provide (UK only)
       cost: 0
     uk:
-      label: Tracked courier service to UK or British Forces Post Office
+      label: Tracked courier service to the UK or British Forces Post Office
       cost: 6
     uk-with-insurance:
       label: Tracked courier service to the UK or British Forces Post Office, with insurance
