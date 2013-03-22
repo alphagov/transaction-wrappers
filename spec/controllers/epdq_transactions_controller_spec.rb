@@ -35,6 +35,10 @@ describe EpdqTransactionsController do
         get :start, :slug => "pay-foreign-marriage-certificates"
       end
 
+      it "sets the correct expiry headers" do
+        assert_equal "max-age=1800, public",  response.headers["Cache-Control"]
+      end
+
       it "is successful" do
         response.should be_success
       end
