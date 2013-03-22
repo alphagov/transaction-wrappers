@@ -4,7 +4,7 @@ source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 gem 'rails', '3.2.13'
 gem 'unicorn', '4.3.1'
 
-gem 'epdq', :git => "https://github.com/alphagov/epdq.git", :branch => "account-object"
+gem 'epdq', :git => "https://github.com/alphagov/epdq.git", :branch => "gds_master"
 
 if ENV['SLIMMER_DEV']
   gem 'slimmer', :path => '../slimmer'
