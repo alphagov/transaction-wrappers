@@ -322,7 +322,7 @@ feature "epdq transactions" do
         page.should have_content("How many documents do you want legalised?")
 
         page.should have_content("Each document costs £30.")
-        page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
+        page.should have_field("transaction_document_count")
 
         page.should have_content("How would you like your documents sent back to you?")
         page.should have_unchecked_field("Prepaid envelope that you provide (UK only) - £0")
@@ -340,7 +340,7 @@ feature "epdq transactions" do
         visit "/pay-legalisation-post/start"
 
         within(:css, "form") do
-          select "1", :from => "transaction_document_count"
+          fill_in "transaction_document_count", :with => "1"
           choose "Tracked courier service to the rest of the world - £25"
         end
 
@@ -373,13 +373,23 @@ feature "epdq transactions" do
       visit "/pay-legalisation-post/start"
 
       within(:css, "form") do
-        select "3", :from => "transaction_document_count"
+        fill_in "transaction_document_count", :with => "3"
       end
 
       click_on "Calculate total"
 
       page.should have_selector("p.error-message", :text => "Please choose a postage option")
       page.should have_content("How would you like your documents sent back to you?")
+    end
+
+    it "returns an error if document count is not an integer" do
+      visit "/pay-legalisation-drop-off/start"
+
+      fill_in "transaction_document_count", :with => "definitely not a number"
+      click_on "Calculate total"
+
+      page.should have_selector("p.error-message", :text => "Document count must be a number")
+      page.should_not have_button "Pay"
     end
   end
 
@@ -395,7 +405,7 @@ feature "epdq transactions" do
         page.should have_content("How many documents do you want legalised?")
 
         page.should have_content("Each document costs £75.")
-        page.should have_select("transaction_document_count", :options => ["1","2","3","4","5","6","7","8","9"])
+        page.should have_field("transaction_document_count")
 
         page.should have_no_content("Which postage method do you require?")
         page.should have_no_content("Do you require postage?")
@@ -410,7 +420,7 @@ feature "epdq transactions" do
         visit "/pay-legalisation-drop-off/start"
 
         within(:css, "form") do
-          select "5", :from => "transaction_document_count"
+          fill_in "transaction_document_count", :with => "5"
         end
 
         click_on "Calculate total"
@@ -436,6 +446,16 @@ feature "epdq transactions" do
           page.should have_button("Pay")
         end
       end
+    end
+
+    it "returns an error if document count is not an integer" do
+      visit "/pay-legalisation-drop-off/start"
+
+      fill_in "transaction_document_count", :with => "definitely not a number"
+      click_on "Calculate total"
+
+      page.should have_selector("p.error-message", :text => "Document count must be a number")
+      page.should_not have_button "Pay"
     end
   end
 
