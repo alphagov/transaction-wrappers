@@ -1,0 +1,6 @@
+<p>
+  <%= label_tag "transaction_#{transaction_key}" do %>
+    <%= raw(question_text) %><br />
+    <%= text_field_tag "transaction[#{transaction_key}]", nil, :id => "transaction_#{transaction_key}", :size => 10 %>
+  <% end %>
+</p>
