@@ -34,6 +34,10 @@ describe TransactionCalculator do
     it "builds an item list with postage" do
       @calculator.calculate(:document_count => 5, :postage => "yes").item_list.should == "5 documents plus postage"
     end
+
+    it "raises an error if the document count is not an integer" do
+      expect{ @calculator.calculate(:document_count => "lots") }.to raise_error(Transaction::InvalidDocumentCount)
+    end
   end
 
   describe "given a transaction with multiple document types" do

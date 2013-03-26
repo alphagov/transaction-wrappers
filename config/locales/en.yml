@@ -6,3 +6,4 @@ en:
     errors:
       document_type: Please choose a document type
       postage_option: Please choose a postage option
+      document_count: Document count must be a number

@@ -24,6 +24,9 @@ class EpdqTransactionsController < ApplicationController
   rescue Transaction::InvalidPostageOption
     @errors = [:postage_option]
     render :action => "start"
+  rescue Transaction::InvalidDocumentCount
+    @errors = [:document_count]
+    render :action => "start"
   end
 
   def done
@@ -53,7 +56,7 @@ private
     )
   end
 
-  def paramplus_value 
+  def paramplus_value
     [].tap do |ary|
       Transaction::PARAMPLUS_KEYS.each do |key|
         if params[:transaction].has_key?(key)

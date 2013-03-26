@@ -1,1 +1,5 @@
-<%= render "partials/questions/number_dropdown", :question_text => question_text, :transaction_key => "document_count" %>
+<% if local_assigns[:question_type] and question_type == :text %>
+  <%= render "partials/questions/number_field", :question_text => question_text, :transaction_key => "document_count" %>
+<% else %>
+  <%= render "partials/questions/number_dropdown", :question_text => question_text, :transaction_key => "document_count" %>
+<% end %>
