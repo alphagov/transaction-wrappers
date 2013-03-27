@@ -52,7 +52,8 @@ private
       :currency => "GBP",
       :language => "en_GB",
       :accepturl => root_url + "#{transaction.slug}/done",
-      :paramplus => paramplus_value
+      :paramplus => paramplus_value,
+      :tp => "#{Plek.current.asset_root}/templates/barclays_epdq.html"
     )
   end
 
