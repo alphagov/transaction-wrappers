@@ -68,7 +68,7 @@ private
   end
 
   def base_url
-    Plek.current.find("www") + "/"
+    Plek.current.website_root + "/"
   end
 
 end
