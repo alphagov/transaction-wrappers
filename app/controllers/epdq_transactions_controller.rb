@@ -51,7 +51,7 @@ private
       :amount => (total_cost_in_gbp * 100).round,
       :currency => "GBP",
       :language => "en_GB",
-      :accepturl => root_url + "#{transaction.slug}/done",
+      :accepturl => base_url + "#{transaction.slug}/done",
       :paramplus => paramplus_value,
       :tp => "#{Plek.current.asset_root}/templates/barclays_epdq.html"
     )
@@ -65,6 +65,10 @@ private
         end
       end
     end.join('&')
+  end
+
+  def base_url
+    Plek.current.find("www") + "/"
   end
 
 end
