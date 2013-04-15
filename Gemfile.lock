@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/alphagov/epdq.git
-  revision: f99e882702d132e4a013df09f1d553d88b26dca4
+  revision: 2103884cdeb4fe55e4e5b1c470879e1650f8d154
   branch: gds_master
   specs:
     epdq (0.0.1)

@@ -121,11 +121,18 @@ feature "epdq transactions" do
       end
 
       context "invalid payment details" do
-        before do
+        it "should display the error page content" do
           visit "/pay-foreign-marriage-certificates/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MISS+MINNIE+MOUSE&SHASIGN=yarrrrr"
+          within(:css, "header.page-header") do
+            page.should have_content("Payment for certificates to get married abroad")
+          end
+
+          page.should have_content("There was a problem making your payment to the Foreign & Commonwealth Office.")
         end
 
-        it "should display the error page content" do
+        it "should display the error page with a missing SHASIGN" do
+          visit "/pay-foreign-marriage-certificates/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MISS+MINNIE+MOUSE"
+
           within(:css, "header.page-header") do
             page.should have_content("Payment for certificates to get married abroad")
           end
