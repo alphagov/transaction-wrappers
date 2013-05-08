@@ -7,9 +7,8 @@ class TransactionCalculator
 
   def calculate(values)
     document_count = values[:document_count].to_i
-    if values.has_key?(:document_count)
-      raise Transaction::InvalidDocumentCount unless document_count > 0
-    end
+
+    raise Transaction::InvalidDocumentCount unless document_count > 0
 
     postage = values[:postage] == "yes"
     document_type = values[:document_type]
@@ -34,6 +33,7 @@ class TransactionCalculator
 
     if @transaction.registration
       registration_count = values[:registration_count].to_i
+
       registration_total = @transaction.registration_cost * registration_count
       total_cost += registration_total
 

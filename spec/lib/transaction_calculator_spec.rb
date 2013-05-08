@@ -90,11 +90,11 @@ describe TransactionCalculator do
     end
 
     it "calculates the cost for a registration" do
-      @calculator.calculate(:registration_count => 1).total_cost.should == 50
+      @calculator.calculate(:registration_count => 1, :document_count => 1).total_cost.should == 70
     end
 
     it "calculates the cost for multiple registrations" do
-      @calculator.calculate(:registration_count => 5).total_cost.should == 250
+      @calculator.calculate(:registration_count => 5, :document_count => 1).total_cost.should == 270
     end
 
     it "calculates the costs of documents and registrations" do
@@ -106,7 +106,7 @@ describe TransactionCalculator do
     end
 
     it "builds an item list for a single registration" do
-      @calculator.calculate(:registration_count => 1).item_list.should == "1 tea registration and 0 tea certificates"
+      @calculator.calculate(:registration_count => 1, :document_count => 1).item_list.should == "1 tea registration and 1 tea certificate"
     end
 
     it "builds an item list for multiple registrations and documents" do
@@ -156,7 +156,7 @@ describe TransactionCalculator do
     end
 
     it "raises an error if no postage option set" do
-      expect{ @calculator.calculate(:postage_option => nil) }.to raise_error(Transaction::InvalidPostageOption)
+      expect{ @calculator.calculate(:postage_option => nil, :document_count => 1) }.to raise_error(Transaction::InvalidPostageOption)
     end
 
     it "raises an error if postage option doesn't exist" do
