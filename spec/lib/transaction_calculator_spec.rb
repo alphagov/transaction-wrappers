@@ -90,11 +90,11 @@ describe TransactionCalculator do
     end
 
     it "calculates the cost for a registration" do
-      @calculator.calculate(:registration_count => 1).total_cost.should == 50
+      @calculator.calculate(:registration_count => 1, :document_count => 1).total_cost.should == 70
     end
 
     it "calculates the cost for multiple registrations" do
-      @calculator.calculate(:registration_count => 5).total_cost.should == 250
+      @calculator.calculate(:registration_count => 5, :document_count => 1).total_cost.should == 270
     end
 
     it "calculates the costs of documents and registrations" do
@@ -106,7 +106,7 @@ describe TransactionCalculator do
     end
 
     it "builds an item list for a single registration" do
-      @calculator.calculate(:registration_count => 1).item_list.should == "1 tea registration and 0 tea certificates"
+      @calculator.calculate(:registration_count => 1, :document_count => 1).item_list.should == "1 tea registration and 1 tea certificate"
     end
 
     it "builds an item list for multiple registrations and documents" do
@@ -115,6 +115,10 @@ describe TransactionCalculator do
 
     it "builds an item list for multiple registrations and documents, with postage" do
       @calculator.calculate(:registration_count => 1, :document_count => 4, :postage => "yes").item_list.should == "1 tea registration and 4 tea certificates plus postage"
+    end
+
+    it "throws an error if registration count is zero" do
+      expect { @calculator.calculate(:registration_count => 0, :document_count => 1, :postage => "yes") }.to raise_error(Transaction::InvalidRegistrationCount)
     end
   end
 
@@ -140,7 +144,7 @@ describe TransactionCalculator do
     end
 
     it "calculates the cost of postage" do
-      @calculator.calculate(:postage_option => "iron-horse").total_cost.should == 20
+      @calculator.calculate(:postage_option => "iron-horse", :document_count => 1).total_cost.should == 40
     end
 
     it "calculates the cost of postage and documents" do
@@ -148,7 +152,7 @@ describe TransactionCalculator do
     end
 
     it "builds an item list including the postage type" do
-      @calculator.calculate(:postage_option => "horse-and-cart").item_list.should == "0 documents plus Horse and cart postage"
+      @calculator.calculate(:postage_option => "horse-and-cart", :document_count => 1).item_list.should == "1 document plus Horse and cart postage"
     end
 
     it "builds an item list of multiple documents including the postage type" do
@@ -156,11 +160,15 @@ describe TransactionCalculator do
     end
 
     it "raises an error if no postage option set" do
-      expect{ @calculator.calculate(:postage_option => nil) }.to raise_error(Transaction::InvalidPostageOption)
+      expect{ @calculator.calculate(:postage_option => nil, :document_count => 1) }.to raise_error(Transaction::InvalidPostageOption)
     end
 
     it "raises an error if postage option doesn't exist" do
-      expect{ @calculator.calculate(:postage_option => "mailman") }.to raise_error(Transaction::InvalidPostageOption)
+      expect{ @calculator.calculate(:postage_option => "mailman", :document_count => 1) }.to raise_error(Transaction::InvalidPostageOption)
+    end
+
+    it "raises an error if document count is zero" do
+      expect{ @calculator.calculate(:postage_option => "flying-machine", :document_count => 0) }.to raise_error(Transaction::InvalidDocumentCount)
     end
   end
 

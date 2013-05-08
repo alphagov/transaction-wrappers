@@ -5,6 +5,7 @@ class Transaction < OpenStruct
   class InvalidDocumentType < StandardError; end
   class InvalidPostageOption < StandardError; end
   class InvalidDocumentCount < StandardError; end
+  class InvalidRegistrationCount < StandardError; end
 
   PARAMPLUS_KEYS = ['document_count', 'postage', 'postage_option', 'registration_count']
 
