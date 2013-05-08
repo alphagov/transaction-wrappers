@@ -162,6 +162,10 @@ describe TransactionCalculator do
     it "raises an error if postage option doesn't exist" do
       expect{ @calculator.calculate(:postage_option => "mailman", :document_count => 1) }.to raise_error(Transaction::InvalidPostageOption)
     end
+
+    it "raises an error if document count is zero" do
+      expect{ @calculator.calculate(:postage_option => "flying-machine", :document_count => 0) }.to raise_error(Transaction::InvalidDocumentCount)
+    end
   end
 
   describe "given a transaction without postage" do
