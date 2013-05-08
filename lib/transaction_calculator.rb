@@ -34,6 +34,8 @@ class TransactionCalculator
     if @transaction.registration
       registration_count = values[:registration_count].to_i
 
+      raise Transaction::InvalidRegistrationCount unless registration_count > 0
+
       registration_total = @transaction.registration_cost * registration_count
       total_cost += registration_total
 

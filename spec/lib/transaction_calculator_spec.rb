@@ -116,6 +116,10 @@ describe TransactionCalculator do
     it "builds an item list for multiple registrations and documents, with postage" do
       @calculator.calculate(:registration_count => 1, :document_count => 4, :postage => "yes").item_list.should == "1 tea registration and 4 tea certificates plus postage"
     end
+
+    it "throws an error if registration count is zero" do
+      expect { @calculator.calculate(:registration_count => 0, :document_count => 1, :postage => "yes") }.to raise_error(Transaction::InvalidRegistrationCount)
+    end
   end
 
   describe "given a transaction with postage options" do
