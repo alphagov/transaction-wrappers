@@ -140,7 +140,7 @@ describe TransactionCalculator do
     end
 
     it "calculates the cost of postage" do
-      @calculator.calculate(:postage_option => "iron-horse").total_cost.should == 20
+      @calculator.calculate(:postage_option => "iron-horse", :document_count => 1).total_cost.should == 40
     end
 
     it "calculates the cost of postage and documents" do
@@ -148,7 +148,7 @@ describe TransactionCalculator do
     end
 
     it "builds an item list including the postage type" do
-      @calculator.calculate(:postage_option => "horse-and-cart").item_list.should == "0 documents plus Horse and cart postage"
+      @calculator.calculate(:postage_option => "horse-and-cart", :document_count => 1).item_list.should == "1 document plus Horse and cart postage"
     end
 
     it "builds an item list of multiple documents including the postage type" do
@@ -160,7 +160,7 @@ describe TransactionCalculator do
     end
 
     it "raises an error if postage option doesn't exist" do
-      expect{ @calculator.calculate(:postage_option => "mailman") }.to raise_error(Transaction::InvalidPostageOption)
+      expect{ @calculator.calculate(:postage_option => "mailman", :document_count => 1) }.to raise_error(Transaction::InvalidPostageOption)
     end
   end
 

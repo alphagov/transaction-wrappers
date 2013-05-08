@@ -7,8 +7,8 @@ class TransactionCalculator
 
   def calculate(values)
     document_count = values[:document_count].to_i
-    if document_count
-      raise Transaction::InvalidDocumentCount unless values[:document_count].to_s =~ %r{\A[0-9]*\z}
+    if values.has_key?(:document_count)
+      raise Transaction::InvalidDocumentCount unless document_count > 0
     end
 
     postage = values[:postage] == "yes"
