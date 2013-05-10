@@ -86,6 +86,24 @@ describe EpdqTransactionsController do
       end
     end
 
+    context "given a zero document count" do
+      before do
+        post :confirm, :slug => "pay-legalisation-drop-off", :transaction => {
+          :document_count => "0",
+          :postage => "yes",
+        }
+      end
+
+      it "renders the start template" do
+        @controller.should render_template("start")
+        response.should be_success
+      end
+
+      it "assigns an error message" do
+        assigns(:errors).should =~ [:document_count]
+      end
+    end
+    
     describe "with multiple document types" do
       context "given valid values" do
         before do
