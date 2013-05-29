@@ -53,6 +53,10 @@ describe EpdqTransactionsController do
         assigns(:transaction).document_cost.should == 65
         assigns(:transaction).registration.should be_false
       end
+
+      it "assigns the journey description" do
+        assigns(:journey_description).should == "pay-foreign-marriage-certificates:start"
+      end
     end
   end
 
@@ -137,6 +141,10 @@ describe EpdqTransactionsController do
           assigns(:epdq_request).parameters[:amount].should == 33500
           assigns(:epdq_request).parameters[:accepturl].should == "http://www.dev.gov.uk/pay-foreign-marriage-certificates/done"
         end
+
+        it "assigns the journey description" do
+          assigns(:journey_description).should == "pay-foreign-marriage-certificates:confirm"
+        end
       end
 
       context "given no document type" do
@@ -153,6 +161,10 @@ describe EpdqTransactionsController do
 
         it "assigns an error message" do
           assigns(:errors).should =~ [:document_type]
+        end
+
+        it "assigns the journey description" do
+          assigns(:journey_description).should == "pay-foreign-marriage-certificates:invalid_form"
         end
       end
 
@@ -171,6 +183,10 @@ describe EpdqTransactionsController do
 
         it "assigns an error message" do
           assigns(:errors).should =~ [:document_type]
+        end
+
+        it "assigns the journey description" do
+          assigns(:journey_description).should == "pay-foreign-marriage-certificates:invalid_form"
         end
       end
     end
@@ -208,6 +224,10 @@ describe EpdqTransactionsController do
           assigns(:epdq_request).parameters[:amount].should == 86000
           assigns(:epdq_request).parameters[:accepturl].should == "http://www.dev.gov.uk/pay-register-birth-abroad/done"
         end
+
+        it "assigns the journey description" do
+          assigns(:journey_description).should == "pay-register-birth-abroad:confirm"
+        end
       end
     end
 
@@ -231,6 +251,10 @@ describe EpdqTransactionsController do
 
         it "renders the confirm template" do
           @controller.should render_template("confirm")
+        end
+
+        it "assigns the journey description" do
+          assigns(:journey_description).should == "deposit-foreign-marriage:confirm"
         end
       end
     end
@@ -291,6 +315,10 @@ describe EpdqTransactionsController do
           assigns(:epdq_response).parameters[:document_count].should == "3"
           assigns(:epdq_response).parameters[:postage].should == "yes"
         end
+
+        it "assigns the journey description" do
+          assigns(:journey_description).should == "deposit-foreign-marriage:done"
+        end
       end
 
       context "given invalid parameters" do
@@ -318,9 +346,12 @@ describe EpdqTransactionsController do
         it "should render the error template" do
           @controller.should render_template("error")
         end
+
+        it "assigns the journey description" do
+          assigns(:journey_description).should == "deposit-foreign-marriage:payment_error"
+        end
       end
 
     end
   end
-
 end

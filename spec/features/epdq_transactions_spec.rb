@@ -34,6 +34,9 @@ feature "epdq transactions" do
 
         page.should have_button("Calculate total")
       end
+
+      find("#wrapper")["data-journey"].should == "pay-foreign-marriage-certificates:start"
+
     end
 
     context "given correct data" do
