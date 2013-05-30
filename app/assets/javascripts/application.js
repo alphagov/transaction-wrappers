@@ -1,1 +1,2 @@
-//= require_tree .
+//= require stageprompt.js
+//= require init_stageprompt.js
