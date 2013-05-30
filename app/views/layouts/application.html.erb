@@ -7,8 +7,10 @@
   </head>
 
   <body class="mainstream <%= yield :body_classes %>">
-    <div id="wrapper" class="<%= yield :wrapper_classes %>">
+    <div id="wrapper" class="<%= yield :wrapper_classes %>" <%= data_journey %>>
+
       <%= yield %>
     </div>
+  <%= javascript_include_tag "application" %>
   </body>
 </html>
