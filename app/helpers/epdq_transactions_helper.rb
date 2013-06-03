@@ -15,10 +15,6 @@ module EpdqTransactionsHelper
     end.join(" and ")
   end
 
-  def data_journey
-    "data-journey=#{@journey_description}" if @journey_description.present?
-  end
-
   private
 
   def document_count
