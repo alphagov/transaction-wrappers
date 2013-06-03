@@ -13,18 +13,23 @@ class EpdqTransactionsController < ApplicationController
   end
 
   def start
+    @journey_description = journey_description(:start)
   end
 
   def confirm
     @calculation = @transaction.calculate_total(params[:transaction])
     @epdq_request = build_epdq_request(@transaction, @calculation.total_cost)
+    @journey_description = journey_description(:confirm)
   rescue Transaction::InvalidDocumentType
+    @journey_description = journey_description(:invalid_form)
     @errors = [:document_type]
     render :action => "start"
   rescue Transaction::InvalidPostageOption
+    @journey_description = journey_description(:invalid_form)
     @errors = [:postage_option]
     render :action => "start"
   rescue Transaction::InvalidDocumentCount
+    @journey_description = journey_description(:invalid_form)
     @errors = [:document_count]
     render :action => "start"
   end
@@ -33,8 +38,10 @@ class EpdqTransactionsController < ApplicationController
     @epdq_response = EPDQ::Response.new(request.query_string, @transaction.account, Transaction::PARAMPLUS_KEYS)
 
     if @epdq_response.valid_shasign?
+      @journey_description = journey_description(:done)
       render "done"
     else
+      @journey_description = journey_description(:payment_error)
       render "payment_error"
     end
   end
@@ -69,6 +76,10 @@ private
 
   def base_url
     Plek.current.website_root + "/"
+  end
+
+  def journey_description(step)
+    "#{@transaction.slug}:#{step}"
   end
 
 end
