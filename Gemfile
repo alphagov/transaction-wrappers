@@ -19,6 +19,8 @@ gem 'aws-ses', :require => 'aws/ses' # Needed by exception_notification
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.10.0'
+
+  gem 'uglifier', '>= 1.0.3'
 end
 
 group :development, :test do
