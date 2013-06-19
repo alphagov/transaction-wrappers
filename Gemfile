@@ -9,7 +9,7 @@ gem 'epdq', :git => "https://github.com/alphagov/epdq.git", :branch => "gds_mast
 if ENV['SLIMMER_DEV']
   gem 'slimmer', :path => '../slimmer'
 else
-  gem 'slimmer', '3.16.0'
+  gem 'slimmer', '3.17.0'
 end
 
 gem 'plek', '1.3.1'
