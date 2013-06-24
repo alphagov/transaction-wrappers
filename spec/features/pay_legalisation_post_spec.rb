@@ -60,6 +60,21 @@ describe "paying to get a document legalised by post" do
     end
   end
 
+  it "should allow selecting zero documents" do
+    # Necessary when people haven't paid for the correct postage the first time round
+
+    visit "/pay-legalisation-post/start"
+
+    within(:css, "form") do
+      fill_in "transaction_document_count", :with => "0"
+      choose "Tracked courier service to the UK or British Forces Post Office, with insurance - £12"
+    end
+
+    click_on "Calculate total"
+
+    page.should have_content("It costs £12 for 0 documents plus Tracked courier service to the UK or British Forces Post Office, with insurance")
+  end
+
   it "displays an error and renders the form given incorrect data" do
     visit "/pay-legalisation-post/start"
 
