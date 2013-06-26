@@ -40,6 +40,29 @@ describe TransactionCalculator do
     end
   end
 
+  describe "given a transaction that allows zero documents" do
+    before :each do
+      @transaction = OpenStruct.new(
+        :document_cost => 20,
+        :allow_zero_document_count => true,
+        :postage_cost => 5,
+        :registration => false)
+      @calculator = TransactionCalculator.new(@transaction)
+    end
+
+    it "calculates the cost for multiple documents" do
+      @calculator.calculate(:document_count => "3").total_cost.should == 60
+    end
+
+    it "calculates the cost for zero documents" do
+      @calculator.calculate(:document_count => "0").total_cost.should == 0
+    end
+
+    it "calculates the cost for zero documents including postage" do
+      @calculator.calculate(:document_count => "0", :postage => "yes").total_cost.should == 5
+    end
+  end
+
   describe "given a transaction with multiple document types" do
     before do
       @transaction = OpenStruct.new(
