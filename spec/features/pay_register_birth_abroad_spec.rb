@@ -10,6 +10,7 @@ describe "paying to register a birth abroad" do
     end
 
     within(:css, "form") do
+      page.should have_content("Pay the Foreign & Commonwealth Office (FCO) to register the death of a British national abroad. You must be back in the UK to use this service.")
       page.should have_content("How many registrations do you need to pay for? Each one costs £105.")
       page.should have_select("transaction_registration_count", :options => ["1","2","3","4","5","6","7","8","9"])
 
@@ -20,6 +21,8 @@ describe "paying to register a birth abroad" do
       page.should have_content("Do you require postage? This costs £10.")
       page.should have_select("transaction_postage", :options => ["Yes", "No"])
 
+      page.should have_content("You must be back in the UK to use this service.")
+      
       page.should have_button("Calculate total")
     end
   end
