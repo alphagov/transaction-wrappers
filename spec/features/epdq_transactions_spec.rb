@@ -7,4 +7,9 @@ feature "epdq transactions" do
 
     page.status_code.should == 404
   end
+
+  it "redirects GET requests to the /confirm page to the /start page" do
+    visit "/pay-legalisation-post/confirm"
+    page.should have_selector "h1", text: "Pay to legalise documents by post"
+  end
 end
