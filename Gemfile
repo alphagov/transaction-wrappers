@@ -18,7 +18,7 @@ gem 'gds-api-adapters', '7.18.0'
 gem 'exception_notification', "3.0.1"
 gem 'aws-ses', :require => 'aws/ses' # Needed by exception_notification
 
-gem 'logstasher', '0.4.0'
+gem 'logstasher', '0.4.1'
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.32.2'
