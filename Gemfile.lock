@@ -64,7 +64,7 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     ffi (1.4.0)
-    gds-api-adapters (7.18.0)
+    gds-api-adapters (8.2.1)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -78,7 +78,7 @@ GEM
     journey (1.0.4)
     json (1.8.1)
     kgio (2.8.0)
-    link_header (0.0.7)
+    link_header (0.0.8)
     logstash-event (1.1.5)
     logstasher (0.4.1)
       logstash-event (~> 1.1.0)
@@ -187,7 +187,7 @@ DEPENDENCIES
   ci_reporter
   epdq!
   exception_notification (= 3.0.1)
-  gds-api-adapters (= 7.18.0)
+  gds-api-adapters (= 8.2.1)
   govuk_frontend_toolkit (= 0.32.2)
   logstasher (= 0.4.1)
   plek (= 1.5.0)
