@@ -13,7 +13,7 @@ else
 end
 
 gem 'plek', '1.5.0'
-gem 'gds-api-adapters', '7.18.0'
+gem 'gds-api-adapters', '8.2.1'
 
 gem 'exception_notification', "3.0.1"
 gem 'aws-ses', :require => 'aws/ses' # Needed by exception_notification
