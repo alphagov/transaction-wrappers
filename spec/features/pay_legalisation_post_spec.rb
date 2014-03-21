@@ -17,9 +17,9 @@ describe "paying to get a document legalised by post" do
 
       page.should have_content("How would you like your documents sent back to you?")
       page.should have_unchecked_field("Prepaid envelope that you provide (UK only) - £0")
-      page.should have_unchecked_field("Tracked courier service to the UK or British Forces Post Office - £6")
-      page.should have_unchecked_field("Tracked courier service to Europe (excluding Russia, Turkey, Bosnia, Croatia, Albania, Belarus, Macedonia, Moldova, Montenegro, Ukraine) - £14.50")
-      page.should have_unchecked_field("Tracked courier service to the rest of the world - £25")
+      page.should have_unchecked_field("Tracked courier service to the UK or British Forces Post Office including Isle of Man and Channel Islands - £4.50")
+      page.should have_unchecked_field("Tracked courier service to Europe (excluding Albania, Armenia, Azerbaijan, Belarus, Bosnia & Herzegovina, Georgia, Liechtenstein, Kazakhstan, Macedonia, Moldova, Montenegro, Russia, Serbia, Turkey, Ukraine) - £12.50")
+      page.should have_unchecked_field("Tracked courier service to the rest of the world - £22")
 
       page.should have_button("Calculate total")
     end
@@ -31,14 +31,14 @@ describe "paying to get a document legalised by post" do
 
       within(:css, "form") do
         fill_in "transaction_document_count", :with => "1"
-        choose "Tracked courier service to the rest of the world - £25"
+        choose "Tracked courier service to the rest of the world - £22"
       end
 
       click_on "Calculate total"
     end
 
     it "calculates a total" do
-      page.should have_content("It costs £55 for 1 document plus Tracked courier service to the rest of the world postage")
+      page.should have_content("It costs £52 for 1 document plus Tracked courier service to the rest of the world postage")
     end
 
     it "generates an EPDQ form" do
@@ -49,7 +49,7 @@ describe "paying to get a document legalised by post" do
         page.should have_selector("input[name='PSPID']")
         page.should have_selector("input[name='SHASIGN']")
 
-        page.should have_selector("input[name='AMOUNT'][value='5500']")
+        page.should have_selector("input[name='AMOUNT'][value='5200']")
         page.should have_selector("input[name='CURRENCY'][value='GBP']")
         page.should have_selector("input[name='LANGUAGE'][value='en_GB']")
         page.should have_selector("input[name='ACCEPTURL'][value='http://www.dev.gov.uk/pay-legalisation-post/done']")
@@ -66,12 +66,12 @@ describe "paying to get a document legalised by post" do
 
     within(:css, "form") do
       fill_in "transaction_document_count", :with => "0"
-      choose "Tracked courier service to the UK or British Forces Post Office - £6"
+      choose "Tracked courier service to the UK or British Forces Post Office including Isle of Man and Channel Islands - £4.50"
     end
 
     click_on "Calculate total"
 
-    page.should have_content("It costs £6 for 0 documents plus Tracked courier service to the UK or British Forces Post Office")
+    page.should have_content("It costs £4.5 for 0 documents plus Tracked courier service to the UK or British Forces Post Office including Isle of Man and Channel Islands")
   end
 
   it "displays an error and renders the form given incorrect data" do

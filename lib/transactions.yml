@@ -39,14 +39,14 @@ pay-legalisation-post:
       label: Prepaid envelope that you provide (UK only)
       cost: 0
     uk:
-      label: Tracked courier service to the UK or British Forces Post Office
-      cost: 6
+      label: Tracked courier service to the UK or British Forces Post Office including Isle of Man and Channel Islands
+      cost: 4.50
     europe:
-      label: Tracked courier service to Europe (excluding Russia, Turkey, Bosnia, Croatia, Albania, Belarus, Macedonia, Moldova, Montenegro, Ukraine)
-      cost: 14.50
+      label: Tracked courier service to Europe (excluding Albania, Armenia, Azerbaijan, Belarus, Bosnia & Herzegovina, Georgia, Liechtenstein, Kazakhstan, Macedonia, Moldova, Montenegro, Russia, Serbia, Turkey, Ukraine)
+      cost: 12.50
     rest-of-world:
       label: Tracked courier service to the rest of the world
-      cost: 25
+      cost: 22
   account: legalisation-post
 pay-legalisation-drop-off:
   title: Pay to legalise documents using the drop-off service
