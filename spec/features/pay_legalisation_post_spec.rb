@@ -71,7 +71,7 @@ describe "paying to get a document legalised by post" do
 
     click_on "Calculate total"
 
-    page.should have_content("It costs £4.5 for 0 documents plus Tracked courier service to the UK or British Forces Post Office including Isle of Man and Channel Islands")
+    page.should have_content("It costs £4.50 for 0 documents plus Tracked courier service to the UK or British Forces Post Office including Isle of Man and Channel Islands")
   end
 
   it "displays an error and renders the form given incorrect data" do

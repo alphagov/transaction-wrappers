@@ -1,1 +1,1 @@
-<p>It costs &pound;<%= @calculation.total_cost %> for <%= pluralize @calculation.document_count, "document" %> plus <%= @calculation.postage_option_label %> postage.</p>
+<p>It costs &pound;<%= format_money(@calculation.total_cost) %> for <%= pluralize @calculation.document_count, "document" %> plus <%= @calculation.postage_option_label %> postage.</p>
