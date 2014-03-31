@@ -74,6 +74,20 @@ describe "paying to get a document legalised by post" do
     page.should have_content("It costs £4.50 for 0 documents plus Tracked courier service to the UK or British Forces Post Office including Isle of Man and Channel Islands")
   end
 
+  it "should format calculated costs correctly" do
+
+    visit "/pay-legalisation-post/start"
+
+    within(:css, "form") do
+      fill_in "transaction_document_count", :with => "1"
+      choose "Tracked courier service to the UK or British Forces Post Office including Isle of Man and Channel Islands - £4.50"
+    end
+
+    click_on "Calculate total"
+
+    page.should have_content("It costs £34.50 for 1 document plus Tracked courier service to the UK or British Forces Post Office including Isle of Man and Channel Islands")
+  end
+
   it "displays an error and renders the form given incorrect data" do
     visit "/pay-legalisation-post/start"
 
